@@ -1,0 +1,31 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "JSON map-файлы (*.tmj *.json)",
+    "fileStates": {
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json": {
+            "scale": 0.25,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1312,
+                "y": 816
+            }
+        },
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json#objs": {
+            "scaleInDock": 1
+        }
+    },
+    "map.renderOrder": null,
+    "openFiles": [
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json"
+    ],
+    "project": "tiled.tiled-project",
+    "recentFiles": [
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json"
+    ]
+}
