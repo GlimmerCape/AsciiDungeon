@@ -16,10 +16,10 @@ function scene:create(event)
 
     physics.start()
     local filename = event.params.map or "scene/game/map/intro.json"
-    local mapData = json.decodeFile(system.pathForFile(filename, sytem.ResourceDirectory))
+    local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/map/map")
 
-    map.extensions = "scene.game.lib."
+    map.extensions = "scene.scripts."
     map:extend("player")
     player = map:findObject("player")
     player.filename = filename
