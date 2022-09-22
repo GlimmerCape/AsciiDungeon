@@ -70,11 +70,11 @@
          "name":"objectLayer",
          "objects":[
                 {
-                 "class":"Player",
+                 "class":"player",
                  "gid":65,
                  "height":64,
                  "id":1,
-                 "name":"Player",
+                 "name":"player",
                  "rotation":0,
                  "visible":true,
                  "width":64,

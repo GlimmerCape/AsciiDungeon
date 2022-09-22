@@ -5,6 +5,7 @@
     },
     "activeFile": "Intro.json",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "JSON map-файлы (*.tmj *.json)",
     "fileStates": {
@@ -30,10 +31,10 @@
         },
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json": {
             "expandedObjectLayers": [
-                7,
-                1,
+                2,
                 3,
-                2
+                1,
+                7
             ],
             "scale": 0.25,
             "selectedLayer": 6,
@@ -53,8 +54,8 @@
             "scale": 0.33,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1033.3333333333333,
-                "y": 900
+                "x": 1030.3030303030305,
+                "y": 896.969696969697
             }
         }
     },

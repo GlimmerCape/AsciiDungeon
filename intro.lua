@@ -10,14 +10,14 @@ local scene = composer.newScene()
 
 function scene:create(event)
 
-    local sceneGroup = self.view
 
+    local sceneGroup = self.view
     -- add sounds
 
     physics.start()
-    local filename = event.params.map or "scene/game/map/intro.json"
+    local filename = event.params.map or "scene/game/map/Intro.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
-    map = tiled.new(mapData, "scene/map/map")
+    map = tiled.new(mapData, "scene/game/map")
 
     map.extensions = "scene.scripts."
     map:extend("player")
