@@ -15,6 +15,7 @@ function scene:create(event)
     -- add sounds
 
     physics.start()
+    physics.setGravity(0, 0)
     local filename = event.params.map or "scene/game/map/Intro.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")

@@ -1,6 +1,8 @@
 local composer = require "composer"
 require("com.ponywolf.joykey").start()
 
+display.setStatusBar(display.HiddenStatusBar)
+
 system.activate("multitouch")
 local vjoy = require("com.ponywolf.vjoy")
 local stick = vjoy.newStick()
