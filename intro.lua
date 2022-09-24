@@ -20,26 +20,20 @@ function scene:create(event)
     local filename = event.params.map or "scene/game/map/Intro.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
-    player = plr.new(self, self)
+    player = plr.new(self)
     player.filename = filename
 
-    function player:tap()
-        print("tapped")
-    end
-
-    player:addEventListener("tap", temp)
+    map.x = display.contentCenterX - map.designedWidth / 2
+    map.y = display.contentCenterY - map.designedHeight / 2
 
     sceneGroup:insert(map)
+    sceneGroup = self.view
+    print(map.numChildren)
 end
 
 local function enterFrame(event)
     local elapsed = event.time
-
-    if player and player.x and player.y and not player.isDead then
-        local x, y = player:localToContent(0, 0)
-        x, y = display.contentCenterX - x, display.contentCenterY - y
-        map.x, map.y = map.x + x, map.y + y
-    end
+    --add camera following player
 end
 
 function scene:show(event)

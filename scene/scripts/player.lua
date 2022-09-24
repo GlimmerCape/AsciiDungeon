@@ -26,10 +26,10 @@ function M.new(instance, options)
     }
     local sheet = graphics.newImageSheet("scene/game/map/SbQR9Q2.png", sheetData)
     local sequenceData = {
-        { name = "idle", frames = { 16 } },
+        { name = "idle", frames = { 65 } },
     }
     instance = display.newSprite(sheet, sequenceData)
-    instance.x, instance.y = x, y
+    instance.x, instance.y = display.contentCenterX, display.contentCenterY
     instance:setSequence("idle")
 
     -- Add physics
@@ -38,7 +38,7 @@ function M.new(instance, options)
 
 
     -- Keyboard control
-    local max, acceleration, left, right, down, up, flip = 375, 5000, 0, 0, 0, 0, 0
+    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, 150, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
     local function key(event)
         local phase = event.phase
@@ -46,15 +46,15 @@ function M.new(instance, options)
         if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
         if phase == "down" then
             if "left" == name or "a" == name then
-                left = -acceleration
+                left = -angularSpeed
             end
             if "right" == name or "d" == name then
-                right = acceleration
+                right = angularSpeed
             elseif "space" == name or "buttonA" == name or "button1" == name then
                 -- add shooting mechanic
             end
             if "up" == name or "w" == name then
-                up = acceleration
+                up = -acceleration
             end
             if "down" == name or "s" == name then
                 down = acceleration
@@ -69,15 +69,14 @@ function M.new(instance, options)
     end
 
     local function enterFrame()
-        local vx, vy = instance:getLinearVelocity()
         local dx = left + right
+        instance.rotation = instance.rotation + dx
+
+        dx = math.rad(instance.rotation + 180)
         local dy = up + down
-        if (dx < 0 and vx > -max) or (dx > 0 and vx < max) and
-            (dy < 0 and vy > -max) or (dy > 0 and vy < max) then
-            instance:applyForce(dx or 0, dy or 0, instance.x, instance.y)
-        end
-        -- Turn around
-        -- instance.xScale = math.min(1, math.max(instance.xScale + flip, -1))
+        local vx = math.cos(dx)
+        local vy = math.sin(dx)
+        instance:setLinearVelocity(vx * dy, vy * dy, instance.x, instance.y)
     end
 
     function instance:finalize()
