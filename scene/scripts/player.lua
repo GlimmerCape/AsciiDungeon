@@ -13,17 +13,22 @@ function M.new(instance, options)
     options = options or {}
 
     -- Store map placement and hide placeholder
-    instance.isVisible = false
+    instance.isVisible = true
     local parent = instance.parent
     local x, y = instance.x, instance.y
 
     -- Load spritesheet
-    local sheetData = { width = 64, height = 64, numFrames = 256, sheetContentWidth = 1024, sheetContentHeight = 1024 }
+    local sheetData = { width = 64,
+        height = 64,
+        numFrames = 256,
+        sheetContentWidth = 1024, --width of original 1x size of entire sheet
+        sheetContentHeight = 1024
+    }
     local sheet = graphics.newImageSheet("scene/game/map/SbQR9Q2.png", sheetData)
     local sequenceData = {
         { name = "idle", frames = { 16 } },
     }
-    instance = display.newSprite(parent, sheet, sequenceData)
+    instance = display.newSprite(sheet, sequenceData)
     instance.x, instance.y = x, y
     instance:setSequence("idle")
 
@@ -33,7 +38,7 @@ function M.new(instance, options)
 
 
     -- Keyboard control
-    local max, acceleration, left, right = 375, 5000, 0, 0
+    local max, acceleration, left, right, down, up, flip = 375, 5000, 0, 0, 0, 0, 0
     local lastEvent = {}
     local function key(event)
         local phase = event.phase
@@ -48,9 +53,17 @@ function M.new(instance, options)
             elseif "space" == name or "buttonA" == name or "button1" == name then
                 -- add shooting mechanic
             end
+            if "up" == name or "w" == name then
+                up = acceleration
+            end
+            if "down" == name or "s" == name then
+                down = acceleration
+            end
         elseif phase == "up" then
             if "left" == name or "a" == name then left = 0 end
             if "right" == name or "d" == name then right = 0 end
+            if "up" == name or "w" == name then up = 0 end
+            if "down" == name or "s" == name then down = 0 end
         end
         lastEvent = event
     end
@@ -58,9 +71,10 @@ function M.new(instance, options)
     local function enterFrame()
         local vx, vy = instance:getLinearVelocity()
         local dx = left + right
-        if instance.jumping then dx = dx / 4 end
-        if (dx < 0 and vx > -max) or (dx > 0 and vx < max) then
-            instance:applyForce(dx or 0, 0, instance.x, instance.y)
+        local dy = up + down
+        if (dx < 0 and vx > -max) or (dx > 0 and vx < max) and
+            (dy < 0 and vy > -max) or (dy > 0 and vy < max) then
+            instance:applyForce(dx or 0, dy or 0, instance.x, instance.y)
         end
         -- Turn around
         -- instance.xScale = math.min(1, math.max(instance.xScale + flip, -1))

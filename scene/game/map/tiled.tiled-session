@@ -31,10 +31,10 @@
         },
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json": {
             "expandedObjectLayers": [
-                2,
-                3,
                 1,
-                7
+                7,
+                2,
+                3
             ],
             "scale": 0.25,
             "selectedLayer": 6,

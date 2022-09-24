@@ -3,6 +3,7 @@ local fx = require("com.ponywolf.ponyfx")
 local tiled = require("com.ponywolf.ponytiled")
 local physics = require("physics")
 local json = require("json")
+local plr = require("scene.scripts.player")
 
 local map, player
 
@@ -19,11 +20,14 @@ function scene:create(event)
     local filename = event.params.map or "scene/game/map/Intro.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
-
-    map.extensions = "scene.scripts."
-    map:extend("player")
-    player = map:findObject("player")
+    player = plr.new(self, self)
     player.filename = filename
+
+    function player:tap()
+        print("tapped")
+    end
+
+    player:addEventListener("tap", temp)
 
     sceneGroup:insert(map)
 end
