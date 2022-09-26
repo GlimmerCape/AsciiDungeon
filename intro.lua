@@ -4,6 +4,7 @@ local tiled = require("com.ponywolf.ponytiled")
 local physics = require("physics")
 local json = require("json")
 local plr = require("scene.scripts.player")
+require("dynamicLighting")
 
 local map, player
 
@@ -11,29 +12,51 @@ local scene = composer.newScene()
 
 function scene:create(event)
 
-
+    --display.setDrawMode("wireframe", true)
     local sceneGroup = self.view
     -- add sounds
 
+    d = display:captureScreen()
     physics.start()
     physics.setGravity(0, 0)
     local filename = event.params.map or "scene/game/map/Intro.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
+    map.extensions = "scene.scripts."
+
     player = plr.new(self)
     player.filename = filename
 
-    map.x = display.contentCenterX - map.designedWidth / 2
-    map.y = display.contentCenterY - map.designedHeight / 2
+    --map.x = display.contentCenterX - map.designedWidth / 2
+    --map.y = display.contentCenterY - map.designedHeight / 2
 
     sceneGroup:insert(map)
-    sceneGroup = self.view
     print(map.numChildren)
 end
 
+local i = 0
 local function enterFrame(event)
     local elapsed = event.time
-    --add camera following player
+    if i == 10 then
+        print(display.fps)
+        i = 0
+    else
+        i = i + 1
+    end
+
+    d:removeSelf()
+    d = display:captureScreen()
+    d.x, d.y = display.contentCenterX, display.contentCenterY
+    d.contentHeight, d.contentWidth = display.contentHeight, display.contentWidth
+    d.fill.effect = "filter.bloom"
+    d.fill.effect.blur.horizontal.blurSize = 20
+    d.fill.effect.blur.horizontal.sigma = 140
+    d.fill.effect.blur.vertical.blurSize = 20
+    d.fill.effect.blur.vertical.sigma = 240
+    d.fill.effect = "filter.custom.dynamicLighting"
+    d.fill.effect.dynamicLighting.playerData = { player.x % 64, player.y % 64 }
+    d.fill.effect.dynamicLighting.lightDir = {}
+    d:toFront()
 end
 
 function scene:show(event)
