@@ -43,19 +43,20 @@ local function enterFrame(event)
     else
         i = i + 1
     end
-
+    --TRY TO APPLY THIS SHADER ONLY TO MAP, might fix bug with blacking out, save to git
+    --before trying naturally
     d:removeSelf()
     d = display:captureScreen()
     d.x, d.y = display.contentCenterX, display.contentCenterY
     d.contentHeight, d.contentWidth = display.contentHeight, display.contentWidth
     d.fill.effect = "filter.bloom"
-    d.fill.effect.blur.horizontal.blurSize = 20
-    d.fill.effect.blur.horizontal.sigma = 140
-    d.fill.effect.blur.vertical.blurSize = 20
-    d.fill.effect.blur.vertical.sigma = 240
-    d.fill.effect = "filter.custom.dynamicLighting"
-    d.fill.effect.dynamicLighting.playerData = { player.x % 64, player.y % 64 }
-    d.fill.effect.dynamicLighting.lightDir = {}
+    d.fill.effect.blur.horizontal.blurSize = 10
+    d.fill.effect.blur.horizontal.sigma = 70
+    d.fill.effect.blur.vertical.blurSize = 10
+    d.fill.effect.blur.vertical.sigma = 120
+    --  d.fill.effect = "filter.custom.dynamicLighting"
+    --  d.fill.effect.playerData = { player.x % 64, player.y % 64 }
+    --  d.fill.effect.lightDir = { player.rotation }
     d:toFront()
 end
 
