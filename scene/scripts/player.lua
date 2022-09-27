@@ -51,7 +51,7 @@ function M.new(instance, options)
     end
 
     -- Keyboard control
-    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, 150, 5, 0, 0, 0, 0, 0
+    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, 350, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
     local function key(event)
         local phase = event.phase
@@ -90,6 +90,8 @@ function M.new(instance, options)
         local vx = math.cos(dx)
         local vy = math.sin(dx)
         instance:setLinearVelocity(vx * dy, vy * dy, instance.x, instance.y)
+
+
 
         --        flashLight(vx, vy)
     end

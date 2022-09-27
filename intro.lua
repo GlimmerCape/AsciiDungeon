@@ -4,7 +4,7 @@ local tiled = require("com.ponywolf.ponytiled")
 local physics = require("physics")
 local json = require("json")
 local plr = require("scene.scripts.player")
-require("dynamicLighting")
+require("dynLight")
 
 local map, player
 
@@ -17,6 +17,7 @@ function scene:create(event)
     -- add sounds
 
     d = display:captureScreen()
+    d.contentHeight, d.contentWidth = display.contentWidth, display.contentHeight
     physics.start()
     physics.setGravity(0, 0)
     local filename = event.params.map or "scene/game/map/Intro.json"
@@ -29,34 +30,32 @@ function scene:create(event)
 
     --map.x = display.contentCenterX - map.designedWidth / 2
     --map.y = display.contentCenterY - map.designedHeight / 2
-
     sceneGroup:insert(map)
-    print(map.numChildren)
+end
+
+local function cameraFollow()
+    local dx, dy = map.x - player.x, map.y - player.y
+    map.x, map.y = map.x - (-dx), map.y - (-dy)
 end
 
 local i = 0
 local function enterFrame(event)
     local elapsed = event.time
-    if i == 10 then
-        print(display.fps)
-        i = 0
-    else
-        i = i + 1
-    end
-    --TRY TO APPLY THIS SHADER ONLY TO MAP, might fix bug with blacking out, save to git
-    --before trying naturally
+    cameraFollow()
+
     d:removeSelf()
     d = display:captureScreen()
+    d.contentHeight, d.contentWidth = display.contentWidth, display.contentHeight
     d.x, d.y = display.contentCenterX, display.contentCenterY
-    d.contentHeight, d.contentWidth = display.contentHeight, display.contentWidth
     d.fill.effect = "filter.bloom"
     d.fill.effect.blur.horizontal.blurSize = 10
     d.fill.effect.blur.horizontal.sigma = 70
     d.fill.effect.blur.vertical.blurSize = 10
     d.fill.effect.blur.vertical.sigma = 120
-    d.fill.effect = "filter.custom.dynamicLighting"
-    d.fill.effect.playerData = { player.x % 64, player.y % 64 }
-    d.fill.effect.lightDir = { player.rotation }
+    d.fill.effect = "filter.custom.dynLight"
+    d.fill.effect.playerX = display.contentCenterX
+    d.fill.effect.playerY = display.contentCenterY
+    d.fill.effect.lightAngle = player.rotation
     d:toFront()
 end
 
