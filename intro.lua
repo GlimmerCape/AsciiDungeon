@@ -54,9 +54,9 @@ local function enterFrame(event)
     d.fill.effect.blur.horizontal.sigma = 70
     d.fill.effect.blur.vertical.blurSize = 10
     d.fill.effect.blur.vertical.sigma = 120
-    --  d.fill.effect = "filter.custom.dynamicLighting"
-    --  d.fill.effect.playerData = { player.x % 64, player.y % 64 }
-    --  d.fill.effect.lightDir = { player.rotation }
+    d.fill.effect = "filter.custom.dynamicLighting"
+    d.fill.effect.playerData = { player.x % 64, player.y % 64 }
+    d.fill.effect.lightDir = { player.rotation }
     d:toFront()
 end
 
