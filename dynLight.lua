@@ -35,7 +35,8 @@ kernel.fragment =
 [[
 P_COLOR vec4 FragmentKernel( P_UV vec2 texCoord )
 {
-    P_COLOR float brightness = 0.9;
+    const float PI = 3.1415926535897932384626433832795;
+    P_COLOR float brightness = 22.5;
     P_COLOR vec4 texColor = texture2D( CoronaSampler0, texCoord );
     P_DEFAULT float plX = CoronaVertexUserData.x;
     P_DEFAULT float plY = CoronaVertexUserData.y;
@@ -43,13 +44,13 @@ P_COLOR vec4 FragmentKernel( P_UV vec2 texCoord )
     P_DEFAULT float lAngle = CoronaVertexUserData.z;
     
     P_UV vec2 tileP = vec2(mod(texCoord.x,float(64)), mod(texCoord.y, float(64)));
-;
+    P_UV vec2 targetV = tileP - plP;
     // Pre-multiply the alpha to brightness
-    brightness = brightness * texColor.a;
+    brightness = brightness * (texColor.r * 0.3 + texColor.g * 0.59 + texColor.b * 0.11 - 0.2);
     
-    if( distance(plP, tileP) < float(0.05) && float(15) > float(10))
+    if((distance(plP, tileP) < float(0.3)))// && (abs(lAngle - atan(targetV.y, targetV.x)*180/PI)< float(15))) 
     {
-        // Add the brightness
+        // Add the brightness 
         texColor.rgb += brightness;
     } 
  

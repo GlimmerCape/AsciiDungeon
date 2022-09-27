@@ -13,7 +13,7 @@ local scene = composer.newScene()
 function scene:create(event)
 
     --display.setDrawMode("wireframe", true)
-    local sceneGroup = self.view
+    sceneGroup = self.view
     -- add sounds
 
     d = display:captureScreen()
@@ -27,6 +27,9 @@ function scene:create(event)
 
     player = plr.new(self)
     player.filename = filename
+    map.x, map.y = display.contentCenterX - 700, display.contentCenterY - 700
+    map.alpha = 0.5
+    player.x, player.y = display.contentCenterX, display.contentCenterY
 
     --map.x = display.contentCenterX - map.designedWidth / 2
     --map.y = display.contentCenterY - map.designedHeight / 2
@@ -34,27 +37,43 @@ function scene:create(event)
 end
 
 local function cameraFollow()
-    local dx, dy = map.x - player.x, map.y - player.y
-    map.x, map.y = map.x - (-dx), map.y - (-dy)
+    local dx, dy = sceneGroup.x - player.x, sceneGroup.y - player.y
+    sceneGroup.x, sceneGroup.y = sceneGroup.x + dx, sceneGroup.y + dy
+    print(sceneGroup.x, sceneGroup.y)
+end
+
+local function key(event)
+    phase = event.phase
+    key = event.keyName
+    if (phase == "down") then
+        if (key == "down") then
+            -- doesnt work at all    cameraFollow()
+        end
+    end
 end
 
 local i = 0
 local function enterFrame(event)
     local elapsed = event.time
-    cameraFollow()
 
     d:removeSelf()
     d = display:captureScreen()
     d.contentHeight, d.contentWidth = display.contentWidth, display.contentHeight
     d.x, d.y = display.contentCenterX, display.contentCenterY
-    d.fill.effect = "filter.bloom"
-    d.fill.effect.blur.horizontal.blurSize = 10
-    d.fill.effect.blur.horizontal.sigma = 70
-    d.fill.effect.blur.vertical.blurSize = 10
-    d.fill.effect.blur.vertical.sigma = 120
+    --    d.fill.effect = "filter.bloom"
+    --    d.fill.effect.blur.horizontal.blurSize = 10
+    --    d.fill.effect.blur.horizontal.sigma = 70
+    --    d.fill.effect.blur.vertical.blurSize = 10
+    --    d.fill.effect.blur.vertical.sigma = 120
     d.fill.effect = "filter.custom.dynLight"
-    d.fill.effect.playerX = display.contentCenterX
-    d.fill.effect.playerY = display.contentCenterY
+    print(player.rotation)
+    d.fill.effect.playerX, d.fill.effect.playerY = player.x / 1200, player.y / 800
+    if (player.rotation > 360) then
+        player.rotation = player.rotation % 360
+    end
+    if (player.rotation < 0) then
+        player.rotation = player.rotation + 360
+    end
     d.fill.effect.lightAngle = player.rotation
     d:toFront()
 end
@@ -89,6 +108,7 @@ function scene:destroy(event)
     end
 end
 
+Runtime:addEventListener("key", key)
 scene:addEventListener("create")
 scene:addEventListener("show")
 scene:addEventListener("hide")
