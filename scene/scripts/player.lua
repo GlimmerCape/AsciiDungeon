@@ -40,14 +40,14 @@ function M.new(instance, options)
     instance.isFixedRotation = false
 
     local function flashLight(vx, vy)
-        local hits = physics.rayCast(instance.x, instance.y, instance.x - (300 * vx), instance.y - (300 * vy), "sorted")
+        --  local hits = physics.rayCast(instance.x, instance.y, instance.x - (300 * vx), instance.y - (300 * vy), "sorted")
         lightDir.x, lightDir.y = instance.x - (300 * vx), instance.y - (300 * vy)
-        if hits ~= nil then
-            print("Hit count" .. tostring(#hits))
-            for i, v in ipairs(hits) do
-                print(v.x, " ", v.y)
-            end
-        end
+        --        if hits ~= nil then
+        --           print("Hit count" .. tostring(#hits))
+        --          for i, v in ipairs(hits) do
+        --             print(v.x, " ", v.y)
+        --        end
+        --   end
     end
 
     -- Keyboard control
@@ -93,7 +93,7 @@ function M.new(instance, options)
 
 
 
-        --        flashLight(vx, vy)
+        flashLight(vx, vy)
     end
 
     function instance:finalize()

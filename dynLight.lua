@@ -33,22 +33,32 @@ kernel.vertexData =
 --abs(lAngle - atan(plP, tileP))
 kernel.fragment =
 [[
+
+const float PI = 3.1415926535897932384626433832795;
+float atan2(in float y, in float x)
+{
+    return x == 0.0 ? sign(y)*PI/2.0 : atan(y, x);
+}
+
+
 P_COLOR vec4 FragmentKernel( P_UV vec2 texCoord )
 {
-    const float PI = 3.1415926535897932384626433832795;
-    P_COLOR float brightness = 22.5;
+
     P_COLOR vec4 texColor = texture2D( CoronaSampler0, texCoord );
+    P_UV vec2 pP = gl_FragCoord.xy; 
+
     P_DEFAULT float plX = CoronaVertexUserData.x;
     P_DEFAULT float plY = CoronaVertexUserData.y;
-    P_UV vec2 plP = vec2(plX, plY) ;
     P_DEFAULT float lAngle = CoronaVertexUserData.z;
+    P_UV vec2 plP = vec2(plX, plY) ;
+    P_COLOR float brightness = 22.5;
     
-    P_UV vec2 tileP = vec2(mod(texCoord.x,float(64)), mod(texCoord.y, float(64)));
+    P_UV vec2 tileP = vec2(floor(pP.x/float(32)), floor(pP.y/ float(32)));
     P_UV vec2 targetV = tileP - plP;
     // Pre-multiply the alpha to brightness
     brightness = brightness * (texColor.r * 0.3 + texColor.g * 0.59 + texColor.b * 0.11 - 0.2);
-    
-    if((distance(plP, tileP) < float(0.3)))// && (abs(lAngle - atan(targetV.y, targetV.x)*180/PI)< float(15))) 
+    //Dont forget angles in radians    
+    if((distance(plP, tileP) < 8.0) && (abs((2.0 * PI - lAngle) - (atan2(targetV.y, targetV.x) + PI)) < 0.3)) 
     {
         // Add the brightness 
         texColor.rgb += brightness;

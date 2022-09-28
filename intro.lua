@@ -31,6 +31,8 @@ function scene:create(event)
     map.alpha = 0.5
     player.x, player.y = display.contentCenterX, display.contentCenterY
 
+    tmer = 0
+
     --map.x = display.contentCenterX - map.designedWidth / 2
     --map.y = display.contentCenterY - map.designedHeight / 2
     sceneGroup:insert(map)
@@ -52,9 +54,9 @@ local function key(event)
     end
 end
 
-local i = 0
 local function enterFrame(event)
     local elapsed = event.time
+    tmer = tmer + elapsed
 
     d:removeSelf()
     d = display:captureScreen()
@@ -66,15 +68,20 @@ local function enterFrame(event)
     --    d.fill.effect.blur.vertical.blurSize = 10
     --    d.fill.effect.blur.vertical.sigma = 120
     d.fill.effect = "filter.custom.dynLight"
-    print(player.rotation)
-    d.fill.effect.playerX, d.fill.effect.playerY = player.x / 1200, player.y / 800
-    if (player.rotation > 360) then
+    local pX, pY = player.x, player.y
+    if (tmer > 1900) then
+        tmer = 0
+        print(math.rad(player.rotation))
+    end
+    d.fill.effect.playerX = pX / 64
+    d.fill.effect.playerY = (750 - pY) / 64
+    if (player.rotation > 180) then
         player.rotation = player.rotation % 360
     end
     if (player.rotation < 0) then
         player.rotation = player.rotation + 360
     end
-    d.fill.effect.lightAngle = player.rotation
+    d.fill.effect.lightAngle = math.rad(player.rotation)
     d:toFront()
 end
 
