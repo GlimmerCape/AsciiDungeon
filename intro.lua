@@ -27,8 +27,10 @@ function scene:create(event)
 
     player = plr.new(self)
     player.filename = filename
-    map.x, map.y = display.contentCenterX - 700, display.contentCenterY - 700
-    map.alpha = 0.5
+    map.x, map.y = display.contentCenterX - 900, display.contentCenterY - 400
+    player:scale(0.7, 0.7)
+    map:scale(0.7, 0.7)
+    map.alpha = 0.7
     player.x, player.y = display.contentCenterX, display.contentCenterY
 
     tmer = 0
@@ -51,13 +53,19 @@ local function key(event)
         if (key == "down") then
             -- doesnt work at all    cameraFollow()
         end
+        if (key == "c") then
+            display.contentCenterX = display.contentCenterX - 1800
+        end
+        if (key == "v") then
+            display.contentCenterX = display.contentCenterX + 1800
+        end
     end
 end
 
 local function enterFrame(event)
     local elapsed = event.time
-    tmer = tmer + elapsed
-
+    tmer = tmer + 1
+    local lightDir = player.lightDir
     d:removeSelf()
     d = display:captureScreen()
     d.contentHeight, d.contentWidth = display.contentWidth, display.contentHeight
@@ -69,7 +77,7 @@ local function enterFrame(event)
     --    d.fill.effect.blur.vertical.sigma = 120
     d.fill.effect = "filter.custom.dynLight"
     local pX, pY = player.x, player.y
-    if (tmer > 1900) then
+    if (tmer > 60) then
         tmer = 0
         print(math.rad(player.rotation))
     end
