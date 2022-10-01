@@ -18,22 +18,22 @@ function M.new(instance, options)
     local x, y = instance.x, instance.y
 
     -- Load spritesheet
-    local sheetData = { width = 64,
-        height = 64,
-        numFrames = 256,
-        sheetContentWidth = 1024, --width of original 1x size of entire sheet
-        sheetContentHeight = 1024
+    local sheetData = { width = 100,
+        height = 100,
+        numFrames = 64,
     }
-    local sheet = graphics.newImageSheet("scene/game/map/SbQR9Q2.png", sheetData)
+    local sheet = graphics.newImageSheet("scene/game/map/asciiTileset.png", sheetData)
     local sequenceData = {
-        { name = "idle", frames = { 65 } },
+        { name = "idle", frames = { 5 } },
     }
-    local debugSequenceData = { { name = "idle", frames = { 5 } } }
+    local debugSequenceData = { { name = "idle", frames = { 7 } } }
     instance = display.newSprite(sheet, sequenceData)
     instance.x, instance.y = display.contentCenterX, display.contentCenterY
     lightDir = display.newSprite(sheet, debugSequenceData)
     lightDir:setSequence("idle")
+    lightDir.alpha = 0
     instance:setSequence("idle")
+
 
     -- Add physics
     physics.addBody(instance, "dynamic", { radius = 30, density = 3, bounce = 0, friction = 1.0 })
@@ -41,7 +41,9 @@ function M.new(instance, options)
 
     local function flashLight(vx, vy)
         --  local hits = physics.rayCast(instance.x, instance.y, instance.x - (300 * vx), instance.y - (300 * vy), "sorted")
-        lightDir.x, lightDir.y = instance.x - (300 * vx), instance.y - (300 * vy)
+        lightDir.x, lightDir.y = instance.x + (30 * vx), instance.y + (30 * vy)
+        lightDir.rotation = -instance.rotation
+
         --        if hits ~= nil then
         --           print("Hit count" .. tostring(#hits))
         --          for i, v in ipairs(hits) do
@@ -51,7 +53,7 @@ function M.new(instance, options)
     end
 
     -- Keyboard control
-    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, 350, 5, 0, 0, 0, 0, 0
+    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
     local function key(event)
         local phase = event.phase

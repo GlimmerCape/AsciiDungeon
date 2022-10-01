@@ -3,12 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Intro.json",
+    "activeFile": "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "JSON map-файлы (*.tmj *.json)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/ASCIIPrototype.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 0.75
@@ -36,11 +39,11 @@
                 3,
                 2
             ],
-            "scale": 0.25,
-            "selectedLayer": 6,
+            "scale": 0.125,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1264,
-                "y": 722
+                "x": 1612,
+                "y": 72
             }
         },
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json#objs": {
@@ -51,12 +54,16 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.33,
-            "selectedLayer": 2,
+            "scale": 0.25,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 957.5757575757575,
-                "y": 640.9090909090909
+                "x": 1582,
+                "y": 984
             }
+        },
+        "ascii_0.3.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         }
     },
     "last.imagePath": "C:/Users/kamel/luaProjects/ASCIIDungeon/scene/game/map",
@@ -66,21 +73,23 @@
     "map.tileWidth": 64,
     "openFiles": [
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/ASCII_0.2.tsx",
-        "Intro.json",
-        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json"
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json",
+        "ascii_0.3.tsx",
+        "Intro.json"
     ],
     "project": "tiled.tiled-project",
     "property.type": "string",
     "recentFiles": [
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/ASCII_0.2.tsx",
-        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json",
         "Intro.json",
+        "ascii_0.3.tsx",
+        "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/sandbox.json",
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/IntroCave.tmx",
         "C:/Users/kamel/luaProjects/Sticker-Knight-Platformer-master/scene/game/map/ASCIIPrototype.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 64,
-        "width": 64
+        "height": 100,
+        "width": 100
     }
 }
