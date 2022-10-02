@@ -86,7 +86,7 @@ function M.new(data, dir)
     local map = display.newGroup()
     dir = dir and (dir .. "/") or "" -- where does the map live?
 
-    local layers = data.layers
+    layers = data.layers
     local tilesets = data.tilesets
     local width, height = data.width * data.tilewidth, data.height * data.tileheight
     local sheets = {}
@@ -223,8 +223,12 @@ function M.new(data, dir)
                             if flip.x then image.xScale = -1 end
                             if flip.y then image.yScale = -1 end
                         end
+                        if layer.properties.bodyType then
+                            physics.addBody(image, layer.properties.bodyType, layer.properties)
+                        end
                         -- apply custom properties
                         image = inherit(image, layer.properties)
+                        image.a = 0
                     end
                 end
             end

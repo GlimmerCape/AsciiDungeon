@@ -26,7 +26,7 @@ function M.new(instance, options)
     local sequenceData = {
         { name = "idle", frames = { 5 } },
     }
-    local debugSequenceData = { { name = "idle", frames = { 7 } } }
+    local debugSequenceData = { { name = "idle", frames = { 1 } } }
     instance = display.newSprite(sheet, sequenceData)
     instance.x, instance.y = display.contentCenterX, display.contentCenterY
     lightDir = display.newSprite(sheet, debugSequenceData)
@@ -37,7 +37,7 @@ function M.new(instance, options)
 
     -- Add physics
     physics.addBody(instance, "dynamic", { radius = 30, density = 3, bounce = 0, friction = 1.0 })
-    instance.isFixedRotation = false
+    instance.isFixedRotation = true
 
     local function flashLight(vx, vy)
         --  local hits = physics.rayCast(instance.x, instance.y, instance.x - (300 * vx), instance.y - (300 * vy), "sorted")

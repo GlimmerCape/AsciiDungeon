@@ -2,8 +2,7 @@ composer = require("composer")
 
 local M = {}
 
-
-function M.new(target, background)
+function M.new(target, background, layer)
 
     local scene = composer.getScene(composer.getSceneName("current"))
 
@@ -30,6 +29,10 @@ function M.new(target, background)
         else
             background.x = background.x - dx
             background.y = background.y - dy
+            for i = 1, #layer do
+                layer[i].x = background.x - dx
+                layer[i].y = background.y - dy
+            end
         end
         -- background.x = background.x + 100
     end
