@@ -66,7 +66,7 @@ P_COLOR vec4 FragmentKernel( P_UV vec2 texCoord )
     } 
     else
     {
-        texColor.rgb -= 0.01;
+        texColor.rgb -= 0.11;
         
     }
  

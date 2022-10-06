@@ -10,7 +10,7 @@ function M.new(x, y)
     local enemy = display.newSprite(sheet, sequenceData)
     enemy:setSequence("idle")
     enemy.x, enemy.y = x, y
-    enemy:setFillColor(0.9, 0.9, 1)
+    enemy:setFillColor(0.0, 1, 1)
     local isAlive = false
 
     physics.addBody(enemy, "dynamic")

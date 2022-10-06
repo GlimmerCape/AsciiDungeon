@@ -9,6 +9,8 @@ local chest = require("scene.scripts.chest")
 local item = require("scene.scripts.item")
 local camera = require("com.perspective")
 local plr = require("scene.scripts.player")
+local enemy = require("scene.scripts.enemyObject")
+local projectile = require("scene.scripts.projectile")
 require("dynLight")
 
 scene = composer.newScene()
@@ -30,23 +32,27 @@ function scene:create(event)
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
+    map.alpha = 0.5
 
     player = plr.new(self)
     player:scale(0.8, 0.8)
-    player.x, player.y = display.contentCenterX, display.contentCenterY
-    map.alpha = 0.5
+    player.x, player.y = 0, 0
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
     end
-    chest1 = chest.new(500, 200, items)
+    local chest1 = chest.new(900, 200, items)
+    local enemy1 = enemy.new(600, 100)
+    local enemy2 = enemy.new(400, 100)
 
 
     uiGroup:insert(stick)
     uiGroup:insert(button)
     map:insert(chest1)
+    map:insert(enemy1)
+    map:insert(enemy2)
 
-    local cam = camera.createView()
+    cam = camera.createView()
     cam:add(player, 1)
     cam:prependLayer()
     cam:appendLayer()
@@ -92,7 +98,18 @@ local function enterFrame(event)
     applyLightShader()
 end
 
+local function key(event)
+    if event.phase == "down" then
+        if event.keyName == "space" or event.keyName == "buttonA" then
+            local proj = projectile.new(player.vx, player.vy,
+                player.x + player.vx * 50, player.x + player.vy * 50)
+            cam:add(proj, 0)
+        end
+    end
+end
+
 scene:addEventListener("create")
+Runtime:addEventListener("key", key)
 Runtime:addEventListener("enterFrame", enterFrame)
 
 return scene

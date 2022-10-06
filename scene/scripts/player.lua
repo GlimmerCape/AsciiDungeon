@@ -39,19 +39,6 @@ function M.new(instance, options)
     physics.addBody(instance, "dynamic", { radius = 30, density = 3, bounce = 0, friction = 1.0 })
     instance.isFixedRotation = true
 
-    local function flashLight(vx, vy)
-        --  local hits = physics.rayCast(instance.x, instance.y, instance.x - (300 * vx), instance.y - (300 * vy), "sorted")
-        lightDir.x, lightDir.y = instance.x + (30 * vx), instance.y + (30 * vy)
-        lightDir.rotation = -instance.rotation
-
-        --        if hits ~= nil then
-        --           print("Hit count" .. tostring(#hits))
-        --          for i, v in ipairs(hits) do
-        --             print(v.x, " ", v.y)
-        --        end
-        --   end
-    end
-
     -- Keyboard control
     local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
@@ -66,7 +53,6 @@ function M.new(instance, options)
             if "right" == name or "d" == name then
                 right = angularSpeed
             elseif "space" == name or "buttonA" == name or "button1" == name then
-                -- add shooting mechanic
             end
             if "up" == name or "w" == name then
                 up = -acceleration
@@ -89,13 +75,10 @@ function M.new(instance, options)
 
         dx = math.rad(instance.rotation + 180)
         local dy = up + down
-        local vx = math.cos(dx)
-        local vy = math.sin(dx)
-        instance:setLinearVelocity(vx * dy, vy * dy, instance.x, instance.y)
+        instance.vx = math.cos(dx)
+        instance.vy = math.sin(dx)
+        instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
 
-
-
-        flashLight(vx, vy)
     end
 
     function instance:finalize()
