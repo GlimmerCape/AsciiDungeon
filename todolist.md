@@ -1,0 +1,5 @@
+-[ ]shader adaptable to resolution
+-[ ]enemy AI
+-[ ]score system (gold)
+- [ ]few levels
+- [ ]fix projectile related bug 

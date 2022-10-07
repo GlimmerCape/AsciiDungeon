@@ -36,7 +36,8 @@ function M.new(instance, options)
 
 
     -- Add physics
-    physics.addBody(instance, "dynamic", { radius = 30, density = 3, bounce = 0, friction = 1.0 })
+    physics.addBody(instance, "dynamic",
+        { radius = 30, density = 3, bounce = 0, friction = 1.0, filter = { groupIndex = -1 } })
     instance.isFixedRotation = true
 
     -- Keyboard control

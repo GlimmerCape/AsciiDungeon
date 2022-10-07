@@ -12,8 +12,8 @@ function M.new(vx, vy, x, y)
     projectile:scale(0.8, 0.8)
     projectile:setFillColor(1.5, 0.5, 0)
 
-    physics.addBody(projectile, "dynamic", { radius = 30 })
-    projectile.isBullet = true
+    physics.addBody(projectile, "dynamic", { radius = 30, filter = { groupIndex = -1 } })
+    projectile.isbullet = true
 
     projectile:setLinearVelocity(vx * 1500, vy * 1500)
 

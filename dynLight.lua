@@ -53,12 +53,12 @@ P_COLOR vec4 FragmentKernel( P_UV vec2 texCoord )
     P_UV vec2 plP = vec2(plX, plY) ;
     P_COLOR float brightness = 9.5; 
     
-    P_UV vec2 tileP = vec2(floor(pP.x/float(32)), floor(pP.y/ float(32)));
+    P_UV vec2 tileP = vec2(pP.x, pP.y); //vec2(floor(pP.x/float(32)), floor(pP.y/ float(32)));
     P_UV vec2 targetV = tileP - plP;
     // Pre-multiply the alpha to brightness
     brightness = brightness * (texColor.r * 0.3 + texColor.g * 0.3 + texColor.b * 0.3 - 0.05);
     //Dont forget angles in radians    
-    if((distance(plP, tileP) <10.0) && (abs((2.0 * PI - lAngle) - (atan2(targetV.y, targetV.x) + PI)) < 0.5)
+    if(/*(distance(plP, tileP) <500.0) && */ (abs((2.0 * PI - lAngle) - (atan2(targetV.y, targetV.x) + PI)) < 0.5)
         || distance(plP, tileP) < 0.0)
     {
         // Add the brightness 

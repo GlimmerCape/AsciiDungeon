@@ -36,7 +36,7 @@ function scene:create(event)
 
     player = plr.new(self)
     player:scale(0.8, 0.8)
-    player.x, player.y = 0, 0
+    player.x, player.y = 1200, 1200
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
@@ -88,8 +88,8 @@ local function applyLightShader()
         player.rotation = player.rotation + 360
     end
     local dir = math.rad(player.rotation)
-    d.fill.effect.playerX = (pX + 70) / 64
-    d.fill.effect.playerY = (760 - pY) / 64
+    d.fill.effect.playerX = display.pixelHeight / 4
+    d.fill.effect.playerY = display.pixelWidth / 4
     d.fill.effect.lightAngle = dir
 
 end
@@ -102,7 +102,7 @@ local function key(event)
     if event.phase == "down" then
         if event.keyName == "space" or event.keyName == "buttonA" then
             local proj = projectile.new(player.vx, player.vy,
-                player.x + player.vx * 50, player.x + player.vy * 50)
+                player.x, player.y)
             cam:add(proj, 0)
         end
     end
