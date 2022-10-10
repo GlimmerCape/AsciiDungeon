@@ -88,8 +88,8 @@ local function applyLightShader()
         player.rotation = player.rotation + 360
     end
     local dir = math.rad(player.rotation)
-    d.fill.effect.playerX = display.pixelHeight / 4
-    d.fill.effect.playerY = display.pixelWidth / 4
+    d.fill.effect.playerX = display.pixelHeight / 2
+    d.fill.effect.playerY = display.pixelWidth / 2
     d.fill.effect.lightAngle = dir
 
 end
