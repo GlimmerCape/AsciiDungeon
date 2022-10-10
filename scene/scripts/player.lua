@@ -1,5 +1,6 @@
 local fx = require("com.ponywolf.ponyfx")
 local composer = require("composer")
+local vjoy = require("com.ponywolf.vjoy")
 
 -- Define module
 local M = {}
@@ -43,39 +44,49 @@ function M.new(instance, options)
     -- Keyboard control
     local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
-    local function key(event)
-        local phase = event.phase
-        local name = event.keyName
-        if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
-        if phase == "down" then
-            if "left" == name or "a" == name then
-                left = -angularSpeed
-            end
-            if "right" == name or "d" == name then
-                right = angularSpeed
-            elseif "space" == name or "buttonA" == name or "button1" == name then
-            end
-            if "up" == name or "w" == name then
-                up = -acceleration
-            end
-            if "down" == name or "s" == name then
-                down = acceleration
-            end
-        elseif phase == "up" then
-            if "left" == name or "a" == name then left = 0 end
-            if "right" == name or "d" == name then right = 0 end
-            if "up" == name or "w" == name then up = 0 end
-            if "down" == name or "s" == name then down = 0 end
+
+    -- local function key(event)
+    --     local phase = event.phase
+    --     local name = event.keyName
+    --     if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
+    --     if phase == "down" then
+    --         if "left" == name or "a" == name then
+    --             left = -angularSpeed
+    --         end
+    --         if "right" == name or "d" == name then
+    --             right = angularSpeed
+    --         elseif "space" == name or "buttonA" == name or "button1" == name then
+    --         end
+    --         if "up" == name or "w" == name then
+    --             up = -acceleration
+    --         end
+    --         if "down" == name or "s" == name then
+    --             down = acceleration
+    --         end
+    --     elseif phase == "up" then
+    --         if "left" == name or "a" == name then left = 0 end
+    --         if "right" == name or "d" == name then right = 0 end
+    --         if "up" == name or "w" == name then up = 0 end
+    --         if "down" == name or "s" == name then down = 0 end
+    --     end
+    --     lastEvent = event
+    -- end
+    local axisX, axisY = 0, 0
+    local function onAxisEvent(event)
+        if (event.axis.number == 3) then
+            axisX = event.normalizedValue
+        else
+            axisY = event.normalizedValue
         end
-        lastEvent = event
     end
 
     local function enterFrame()
-        local dx = left + right
-        instance.rotation = instance.rotation + dx
+        local dx = math.atan2((axisY - 0), (axisX - 0))
+        if dx ~= 0 then
+            instance.rotation = dx * (180 / math.pi) - 180
+        end
 
-        dx = math.rad(instance.rotation + 180)
-        local dy = up + down
+        local dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
         instance.vx = math.cos(dx)
         instance.vy = math.sin(dx)
         instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
@@ -93,7 +104,9 @@ function M.new(instance, options)
     Runtime:addEventListener("enterFrame", enterFrame)
 
     -- Add our key/joystick listeners
-    Runtime:addEventListener("key", key)
+    -- Runtime:addEventListener("key", key)
+
+    Runtime:addEventListener("axis", onAxisEvent)
 
 
     -- Return instance
