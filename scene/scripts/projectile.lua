@@ -15,18 +15,16 @@ function M.new(vx, vy, x, y)
     physics.addBody(projectile, "dynamic", { radius = 30, filter = { groupIndex = -1 } })
     projectile.isbullet = true
 
-    projectile:setLinearVelocity(vx * 1500, vy * 1500)
+    projectile:setLinearVelocity(vx * 1900, vy * 1900)
 
     local function destroySelf()
         projectile:removeSelf()
     end
 
     function projectile:collision(event)
-        print("collision")
         if event.other ~= nil and event.other.type ~= "player" then
-            print("something ")
             projectile:removeEventListener("collision")
-            timer.performWithDelay(100, destroySelf)
+            timer.performWithDelay(50, destroySelf)
         end
     end
 
