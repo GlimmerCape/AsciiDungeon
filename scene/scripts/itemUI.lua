@@ -38,17 +38,18 @@ function M.new(items)
     UpdateText()
 
     local function enterFrame(event)
-        if ((windowGroup.numChildren - 1) < #items) then
+        if #items == 0 and window ~= nill then
+            window:removeSelf()
+            window = nil
+        end
+
+        if ((windowGroup.numChildren - 1) < #items and window ~= nil) then
             for i = 1, #items do
                 if (windowGroup[i + 1] == nil) then
                     table.remove(items, i)
                     UpdateText()
                 end
             end
-        end
-        if #items == 0 and window ~= nill then
-            window:setFillColor(0, 0, 0)
-            window = nil
         end
     end
 
