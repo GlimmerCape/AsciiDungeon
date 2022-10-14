@@ -80,14 +80,14 @@ function M.new(instance, options)
         end
     end
 
+    local dy = 0
     local function enterFrame()
         local dx = math.atan2((axisY - 0), (axisX - 0))
-        if axisX ~= 0 and axisX ~= 0 and dx ~= 0 then
+        if axisX ~= 0 and axisY ~= 0 and dx ~= 0 then
             instance.rotation = dx * (180 / math.pi) - 180
         end
-
-        local dy = 0
-        if axisX ~= 0 and axisX ~= 0 then
+        dy = 0
+        if axisX ~= 0 and axisY ~= 0 then
             dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
         end
         instance.vx = math.cos(math.rad(instance.rotation - 180))
