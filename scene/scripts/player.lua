@@ -30,10 +30,13 @@ function M.new(instance, options)
     local debugSequenceData = { { name = "idle", frames = { 1 } } }
     instance = display.newSprite(sheet, sequenceData)
     instance.x, instance.y = display.contentCenterX, display.contentCenterY
+    instance.vx, instance.vy = math.cos(math.rad(instance.rotation - 180)), math.sin(math.rad(instance.rotation - 180))
     lightDir = display.newSprite(sheet, debugSequenceData)
     lightDir:setSequence("idle")
     lightDir.alpha = 0
     instance:setSequence("idle")
+
+    instance.lightMask = graphics.newMask("javajava.png")
 
 
     -- Add physics
@@ -45,54 +48,66 @@ function M.new(instance, options)
     local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 5, 0, 0, 0, 0, 0
     local lastEvent = {}
 
-    -- local function key(event)
-    --     local phase = event.phase
-    --     local name = event.keyName
-    --     if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
-    --     if phase == "down" then
-    --         if "left" == name or "a" == name then
-    --             left = -angularSpeed
-    --         end
-    --         if "right" == name or "d" == name then
-    --             right = angularSpeed
-    --         elseif "space" == name or "buttonA" == name or "button1" == name then
-    --         end
-    --         if "up" == name or "w" == name then
-    --             up = -acceleration
-    --         end
-    --         if "down" == name or "s" == name then
-    --             down = acceleration
-    --         end
-    --     elseif phase == "up" then
-    --         if "left" == name or "a" == name then left = 0 end
-    --         if "right" == name or "d" == name then right = 0 end
-    --         if "up" == name or "w" == name then up = 0 end
-    --         if "down" == name or "s" == name then down = 0 end
-    --     end
-    --     lastEvent = event
-    -- end
-    local axisX, axisY = 0, 0
-    local function onAxisEvent(event)
-        if (event.axis.number == 3) then
-            axisX = event.normalizedValue
-        else
-            axisY = event.normalizedValue
+    local function key(event)
+        local phase = event.phase
+        local name = event.keyName
+        if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
+        if phase == "down" then
+            if "left" == name or "buttonL" == name then
+                left = -angularSpeed
+            end
+            if "right" == name or "buttonR" == name then
+                right = angularSpeed
+            elseif "space" == name or "buttonA" == name or "button1" == name then
+            end
+            if "up" == name or "buttonU" == name then
+                up = acceleration
+                print("up")
+            end
+            if "down" == name or "buttonD" == name then
+                down = -acceleration
+            end
+        elseif phase == "up" then
+            if "left" == name or "buttonL" == name then left = 0 end
+            if "right" == name or "buttonR" == name then right = 0 end
+            if "up" == name or "buttonU" == name then up = 0 end
+            if "down" == name or "buttonD" == name then down = 0 end
         end
+        lastEvent = event
     end
 
-    local dy = 0
+    -- local axisX, axisY = 0, 0
+    -- local function onAxisEvent(event)
+    --     if (event.axis.number == 3) then
+    --         axisX = event.normalizedValue
+    --     else
+    --         axisY = event.normalizedValue
+    --     end
+    -- end
+
+    -- local dy = 0
     local function enterFrame()
-        local dx = math.atan2((axisY - 0), (axisX - 0))
-        if axisX ~= 0 and axisY ~= 0 and dx ~= 0 then
-            instance.rotation = dx * (180 / math.pi) - 180
-        end
-        dy = 0
-        if axisX ~= 0 and axisY ~= 0 then
-            dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
-        end
-        instance.vx = math.cos(math.rad(instance.rotation - 180))
-        instance.vy = math.sin(math.rad(instance.rotation - 180))
-        instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
+        local dx = left + right
+        instance.rotation = instance.rotation + dx
+
+        dx = math.rad(instance.rotation + 180)
+        local dy = up + down
+        local vx = math.cos(dx)
+        local vy = math.sin(dx)
+        instance:setLinearVelocity(vx * dy, vy * dy, instance.x, instance.y)
+
+        -- local dx = math.atan2((axisY - 0), (axisX - 0))
+        -- if axisX ~= 0 and axisY ~= 0 and dx ~= 0 then
+        --     instance.rotation = dx * (180 / math.pi) - 180
+        -- end
+        -- dy = 0
+        -- if axisX ~= 0 and axisY ~= 0 then
+        --     -- dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
+        --     dy = -acceleration
+        -- end
+        -- instance.vx = axisX
+        -- instance.vy = axisY
+        -- instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
 
     end
 
@@ -107,9 +122,9 @@ function M.new(instance, options)
     Runtime:addEventListener("enterFrame", enterFrame)
 
     -- Add our key/joystick listeners
-    -- Runtime:addEventListener("key", key)
+    Runtime:addEventListener("key", key)
 
-    Runtime:addEventListener("axis", onAxisEvent)
+    -- Runtime:addEventListener("axis", onAxisEvent)
 
 
     -- Return instance

@@ -46,8 +46,8 @@ function scene:create(event)
     local enemy2 = enemy.new(400, 100)
 
 
-    uiGroup:insert(stick)
     uiGroup:insert(button)
+    uiGroup:insert(fakeButton, downButton, upButton, leftButton, rightButton)
     map:insert(chest1)
     map:insert(enemy1)
     map:insert(enemy2)
@@ -65,8 +65,8 @@ function scene:create(event)
     cam:setMask(player.lightMask)
     cam.maskX = display.contentWidth / 2
     cam.maskY = display.contentHeight / 2
-    cam.maskScaleX = 0.5
-    cam.maskScaleY = 0.5
+    cam.maskScaleX = 2.0
+    cam.maskScaleY = 2.0
 
 end
 
@@ -102,6 +102,7 @@ end
 
 local function enterFrame(event)
     -- applyLightShader()
+    cam.maskRotation = player.rotation
 end
 
 local function key(event)
