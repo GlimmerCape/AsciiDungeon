@@ -67,6 +67,7 @@ function scene:create(event)
     cam.maskY = display.contentHeight / 2
     cam.maskScaleX = 2.0
     cam.maskScaleY = 2.0
+    uiGroup:toFront()
 
 end
 
@@ -102,7 +103,7 @@ end
 
 local function enterFrame(event)
     -- applyLightShader()
-    cam.maskRotation = player.rotation
+    cam.maskRotation = player.rotation - 180
 end
 
 local function key(event)

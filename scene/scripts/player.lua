@@ -45,7 +45,7 @@ function M.new(instance, options)
     instance.isFixedRotation = true
 
     -- Keyboard control
-    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 5, 0, 0, 0, 0, 0
+    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 2.5, 0, 0, 0, 0, 0
     local lastEvent = {}
 
     local function key(event)
@@ -61,11 +61,11 @@ function M.new(instance, options)
             elseif "space" == name or "buttonA" == name or "button1" == name then
             end
             if "up" == name or "buttonU" == name then
-                up = acceleration
+                up = -acceleration
                 print("up")
             end
             if "down" == name or "buttonD" == name then
-                down = -acceleration
+                down = acceleration
             end
         elseif phase == "up" then
             if "left" == name or "buttonL" == name then left = 0 end
@@ -92,9 +92,9 @@ function M.new(instance, options)
 
         dx = math.rad(instance.rotation + 180)
         local dy = up + down
-        local vx = math.cos(dx)
-        local vy = math.sin(dx)
-        instance:setLinearVelocity(vx * dy, vy * dy, instance.x, instance.y)
+        instance.vx = math.cos(dx)
+        instance.vy = math.sin(dx)
+        instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
 
         -- local dx = math.atan2((axisY - 0), (axisX - 0))
         -- if axisX ~= 0 and axisY ~= 0 and dx ~= 0 then
