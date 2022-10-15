@@ -32,11 +32,11 @@ function scene:create(event)
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
-    map.alpha = 0.5
+    map.alpha = 1.5
 
     player = plr.new(self)
     player:scale(0.8, 0.8)
-    player.x, player.y = 1200, 1200
+    player.x, player.y = 1000, 1200
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
@@ -61,6 +61,12 @@ function scene:create(event)
     cam.damping = 1
     cam:setFocus(player)
     cam:track()
+
+    cam:setMask(player.lightMask)
+    cam.maskX = display.contentWidth / 2
+    cam.maskY = display.contentHeight / 2
+    cam.maskScaleX = 0.5
+    cam.maskScaleY = 0.5
 
 end
 
@@ -88,14 +94,14 @@ local function applyLightShader()
         player.rotation = player.rotation + 360
     end
     local dir = math.rad(player.rotation)
-    d.fill.effect.playerX = display.pixelHeight / 2
-    d.fill.effect.playerY = display.pixelWidth / 2
+    d.fill.effect.playerX = pX
+    d.fill.effect.playerY = pY
     d.fill.effect.lightAngle = dir
 
 end
 
 local function enterFrame(event)
-    applyLightShader()
+    -- applyLightShader()
 end
 
 local function key(event)
