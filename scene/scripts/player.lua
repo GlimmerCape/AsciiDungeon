@@ -36,8 +36,11 @@ function M.new(instance, options)
     lightDir.alpha = 0
     instance:setSequence("idle")
 
+
     instance.lightMask = graphics.newMask("javajava.png")
 
+    instance.debugText = display.newText(" ", 300, 300, native.systemFont, 20)
+    instance.debugText.x, instance.debugText.y = display.contentWidth * 0.7, 100
 
     -- Add physics
     physics.addBody(instance, "dynamic",
@@ -55,17 +58,21 @@ function M.new(instance, options)
         if phase == "down" then
             if "left" == name or "buttonL" == name then
                 left = -angularSpeed
+                instance.debugText.text = "L"
             end
             if "right" == name or "buttonR" == name then
                 right = angularSpeed
+                instance.debugText.text = "R"
             elseif "space" == name or "buttonA" == name or "button1" == name then
             end
             if "up" == name or "buttonU" == name then
                 up = -acceleration
+                instance.debugText.text = "U"
                 print("up")
             end
             if "down" == name or "buttonD" == name then
                 down = acceleration
+                instance.debugText.text = "D"
             end
         elseif phase == "up" then
             if "left" == name or "buttonL" == name then left = 0 end

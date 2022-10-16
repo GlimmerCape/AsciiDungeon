@@ -48,6 +48,7 @@ function scene:create(event)
 
     uiGroup:insert(button)
     uiGroup:insert(fakeButton, downButton, upButton, leftButton, rightButton)
+    uiGroup:insert(player.debugText)
     map:insert(chest1)
     map:insert(enemy1)
     map:insert(enemy2)
