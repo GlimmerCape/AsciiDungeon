@@ -58,20 +58,24 @@ function M.new(instance, options)
         if phase == "down" then
             if "left" == name or "buttonL" == name then
                 left = -angularSpeed
+                right = 0
                 instance.debugText.text = "L"
             end
             if "right" == name or "buttonR" == name then
                 right = angularSpeed
+                left = 0
                 instance.debugText.text = "R"
             elseif "space" == name or "buttonA" == name or "button1" == name then
             end
             if "up" == name or "buttonU" == name then
                 up = -acceleration
+                down = 0
                 instance.debugText.text = "U"
                 print("up")
             end
             if "down" == name or "buttonD" == name then
                 down = acceleration
+                up = 0
                 instance.debugText.text = "D"
             end
         elseif phase == "up" then
