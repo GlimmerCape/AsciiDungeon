@@ -28,30 +28,39 @@ function scene:create(event)
     physics.start()
     physics.setGravity(0, 0)
 
-    local filename = event.params.map or "scene/game/map/Intro.json"
+    local filename = event.params.map or "scene/game/map/testingSite.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
+    map.x, map.y = 0
     map.alpha = 1.5
 
     player = plr.new(self)
     player:scale(0.8, 0.8)
-    player.x, player.y = 1000, 1200
+    player.x, player.y = 0, 0
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
     end
-    local chest1 = chest.new(900, 200, items)
-    local enemy1 = enemy.new(600, 100)
-    local enemy2 = enemy.new(400, 100)
+    -- local chest1 = chest.new(900, 200, items)
+    local enemies = { enemy.new(800, 700, player, true), enemy.new(900, 700, player, true),
+        enemy.new(850, 700, player, true)
+        , enemy.new(200, 300, player, false, 180), enemy.new(300, 300, player, false, 180),
+        enemy.new(1800, 400, player, false) }
+
 
 
     uiGroup:insert(button)
-    uiGroup:insert(fakeButton, downButton, upButton, leftButton, rightButton)
+    uiGroup:insert(fakeButton)
+    uiGroup:insert(leftButton)
+    uiGroup:insert(rightButton)
+    uiGroup:insert(upButton)
+    uiGroup:insert(downButton)
     uiGroup:insert(player.debugText)
-    map:insert(chest1)
-    map:insert(enemy1)
-    map:insert(enemy2)
+    -- map:insert(chest1)
+    for i, v in pairs(enemies) do
+        map:insert(v)
+    end
 
     cam = camera.createView()
     cam:add(player, 1)

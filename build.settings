@@ -42,7 +42,7 @@ settings =
 		titleText = {
 			-- The "default" text will be used if the system is using a language and/or
 			-- country code not defined. This serves as a fallback mechanism.
-			default = "Sticker Knight",
+			default = "ASCII Dungeon",
 		},
 	},
 
