@@ -117,6 +117,10 @@ function M.new(instance, options)
 
     end
 
+    function instance:gameOver()
+        composer.gotoScene("scene.refresh", { params = { map = scene.filename } })
+    end
+
     function instance:finalize()
         Runtime:removeEventListener("enterFrame", enterFrame)
     end

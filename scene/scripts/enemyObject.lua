@@ -60,7 +60,7 @@ function M.new(x, y, target, isWandering, initAngle)
     end
 
     local function targetIsVisible()
-        if (calc.distance(target, enemy) < rangeOV and calc.isInFov(target, enemy, fov)) then
+        if (calc.distance(target, enemy) < rangeOV and (isEngaged or calc.isInFov(target, enemy, fov))) then
             local hits = physics.rayCast(enemy.x, enemy.y, target.x, target.y, "sorted")
             for i, v in ipairs(hits) do
                 if v.object == target then
@@ -102,6 +102,9 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function onAttackEnd(event)
         if (event.phase == "ended") then
+            if calc.distance(target, enemy) < 150 then
+                target:gameOver()
+            end
             event.target:setSequence("idle")
             event.target:play()
         end
@@ -116,6 +119,7 @@ function M.new(x, y, target, isWandering, initAngle)
             moveTowardsWayPoint(target)
             print(enemy.rotation)
             fov = 90
+            isEngaged = true
             enemy:setFillColor(1, 1, 1)
             if attackIsReady and calc.distance(target, enemy) < attackRange then
                 attack()
@@ -123,14 +127,19 @@ function M.new(x, y, target, isWandering, initAngle)
 
             return
         end
+
+        if isEngaged == true then
+            isEngaged = false
+            enemy:setLinearVelocity(0, 0)
+        end
+
         if isWandering and wanderIsReady then
             enemy:setFillColor(0.7, 0, 0)
             wander()
             return
         end
-
+        -- if idle
         enemy:setFillColor(0.7, 0, 0)
-        target.debugText.text = "A" .. tostring(calc.angle(target, enemy))
     end
 
     function enemy:collision(event)
