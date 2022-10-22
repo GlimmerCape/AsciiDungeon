@@ -1,6 +1,7 @@
 local fx = require("com.ponywolf.ponyfx")
 local composer = require("composer")
 local vjoy = require("com.ponywolf.vjoy")
+local fx = require("com.ponywolf.ponyfx")
 
 -- Define module
 local M = {}
@@ -9,6 +10,8 @@ function M.new(instance, options)
     -- Get the current scene
     local scene = composer.getScene(composer.getSceneName("current"))
     local sounds = scene.sounds
+
+    isGameOver = false
 
     -- Default options for instance
     options = options or {}
@@ -101,7 +104,6 @@ function M.new(instance, options)
         instance.vx = math.cos(dx)
         instance.vy = math.sin(dx)
         instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
-
         -- local dx = math.atan2((axisY - 0), (axisX - 0))
         -- if axisX ~= 0 and axisY ~= 0 and dx ~= 0 then
         --     instance.rotation = dx * (180 / math.pi) - 180
@@ -111,14 +113,26 @@ function M.new(instance, options)
         --     -- dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
         --     dy = -acceleration
         -- end
-        -- instance.vx = axisX
+        -- instance.vx = axis
         -- instance.vy = axisY
         -- instance:setLinearVelocity(instance.vx * dy, instance.vy * dy, instance.x, instance.y)
 
     end
 
     function instance:gameOver()
-        composer.gotoScene("scene.refresh", { params = { map = scene.filename } })
+        if gameIsOver then
+            return
+        end
+        gameIsOver = true
+        instance:finalize()
+        local gameOverScreen = display.newImage("scene/game/map/gameOverScreen.jpg")
+        cam:setMask(nil)
+        cam:add(gameOverScreen, 0)
+        cam:setFocus(gameOverScreen)
+        fx.fadeOut(function()
+            composer.gotoScene("scene.refresh", { params = { map = scene.filename } })
+        end, 1500, 1000)
+
     end
 
     function instance:finalize()

@@ -38,18 +38,22 @@ function scene:create(event)
     player = plr.new(self)
     player:scale(0.8, 0.8)
     player.x, player.y = 0, 500
+    player.rotation = 180
+
+
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
     end
     -- local chest1 = chest.new(900, 200, items)
-    local enemies = { enemy.new(800, 700, player, true), enemy.new(900, 700, player, true),
-        enemy.new(850, 700, player, true)
-        , enemy.new(200, 100, player, false), enemy.new(300, 100, player, false),
+    local enemies = { enemy.new(1100, 700, player, true), enemy.new(900, 700, player, true),
+        enemy.new(1000, 700, player, true)
+        , enemy.new(200, 200, player, false), enemy.new(300, 100, player, false),
         enemy.new(1800, 400, player, false) }
     local fovLineExample = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(50)) * 600,
-        enemies[4].y - math.sin(math.rad(50)) * 600)
-    local fovLineExample2 = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x - math.cos(math.rad(50)) * 600,
+        enemies[4].y + math.sin(math.rad(50)) * 600)
+    local fovLineExample2 = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(50)) * 600
+        ,
         enemies[4].y - math.sin(math.rad(50)) * 600)
     local fovLines = { fovLineExample, fovLineExample2 }
 
@@ -88,7 +92,6 @@ function scene:create(event)
     cam.maskScaleX = 2.0
     cam.maskScaleY = 2.0
     uiGroup:toFront()
-
 end
 
 local function applyLightShader()
@@ -136,7 +139,22 @@ local function key(event)
     end
 end
 
+function scene:hide(event)
+    Runtime:removeEventListener("key", key)
+    Runtime:removeEventListener("enterFrame", enterFrame)
+    cam:destroy()
+    for i, v in ipairs(map) do
+        for j, vv in ipairs(v) do
+            vv:removeSelf()
+        end
+    end
+    player:removeSelf()
+    map:removeSelf()
+    map = nil
+end
+
 scene:addEventListener("create")
+scene:addEventListener("hide")
 Runtime:addEventListener("key", key)
 Runtime:addEventListener("enterFrame", enterFrame)
 

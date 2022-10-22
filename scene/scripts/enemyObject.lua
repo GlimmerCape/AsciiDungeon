@@ -153,7 +153,12 @@ function M.new(x, y, target, isWandering, initAngle)
         end
     end
 
+    function enemy:finalize(event)
+        Runtime:removeEventListener("enterFrame", enterFrame)
+    end
+
     enemy:addEventListener("collision")
+    enemy:addEventListener("finalize")
     Runtime:addEventListener("enterFrame", enterFrame)
     enemy.name = "enemy"
     enemy.type = "enemy"
