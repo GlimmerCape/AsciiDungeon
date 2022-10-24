@@ -3,8 +3,10 @@ local M = {}
 
 function M.new(x, y, target, isWandering, initAngle)
 
-    local fov = 50
+    local fov = 45
     local rangeOV = 600
+    --range of hearing
+    local rangeOH = 150
     local isEngaged = false
 
     if isWandering == nil then
@@ -13,10 +15,12 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local attackCD = 0.8
     local attackIsReady = true
-    local attackRange = 200
+    local attackRange = 150
     local speed = 150
 
     local wanderCD = 0
+    local wanderCDlowerBound = 2
+    local wanderCDupperBound = 4
     local wanderIsReady = true
 
 
@@ -41,18 +45,19 @@ function M.new(x, y, target, isWandering, initAngle)
     local isAlive = true
 
     physics.addBody(enemy, "dynamic", { density = 3.0, friction = 0.0, bounce = 0.1 })
-    enemy.angularDamping = 0.95
+    enemy.angularDamping = 0.90
     enemy.objectLinearDamping = 0.99
 
     local function rechargeWander(event)
         wanderIsReady = true
     end
 
-    local function moveTowardsWayPoint(wayPoint)
+    local function moveTowardsWayPoint(wayPoint, velocity)
+        -- transition.to(enemy, { time = 400, rotation = calc.angle(wayPoint, enemy) })
         enemy.rotation = calc.angle(wayPoint, enemy)
-        local angleInRad = math.rad(enemy.rotation - 90)
+        local angleInRad = math.rad(enemy.rotation)
         local xComp, yComp = math.cos(angleInRad), math.sin(angleInRad)
-        enemy:setLinearVelocity(xComp * speed, yComp * speed)
+        enemy:setLinearVelocity(xComp * velocity, yComp * velocity)
     end
 
     local function destroyCollider()
@@ -60,8 +65,13 @@ function M.new(x, y, target, isWandering, initAngle)
     end
 
     local function targetIsVisible()
-        if (calc.distance(target, enemy) < rangeOV and (isEngaged or calc.isInFov(target, enemy, fov))) then
+        target.debugText.text = tostring(calc.isInFov(target, enemy, fov))
+        target.debugText.text = target.debugText.text ..
+            tostring(math.abs(enemy.rotation - calc.angle(target, enemy)))
+        if ((calc.distance(target, enemy) < rangeOV) and (isEngaged or calc.isInFov(target, enemy, fov)))
+            or calc.distance(target, enemy) < rangeOH then
             local hits = physics.rayCast(enemy.x, enemy.y, target.x, target.y, "sorted")
+            if hits == nil then return false end
             for i, v in ipairs(hits) do
                 if v.object == target then
                     return true
@@ -76,17 +86,20 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function wander()
         wanderIsReady = false
-        wanderCD = math.random(0.5, 1)
+        wanderCD = math.random(wanderCDlowerBound, wanderCDupperBound)
         timer.performWithDelay(wanderCD * 1000, rechargeWander)
         local rPoint = { x, y }
-        for i = 1, 3 do
-            rPoint.x, rPoint.y = math.random(enemy.x - 500, enemy.x + 500), math.random(enemy.y - 500, enemy.y + 500)
-            local hits         = physics.rayCast(enemy.x, enemy.y, rPoint.x, rPoint.y)
+        rPoint.x, rPoint.y = math.random(enemy.x - 500, enemy.x + 500), math.random(enemy.y - 500, enemy.y + 500)
+        for i = 0, 3 do
+            local angle = i * 90
+            rPoint.x = math.cos(angle) * (rPoint.x - enemy.x) - math.sin(angle) * (rPoint.y - enemy.y) + enemy.x
+            rPoint.y = math.sin(angle) * (rPoint.x - enemy.x) + math.cos(angle) * (rPoint.y - enemy.y) + enemy.y
+            local hits = physics.rayCast(enemy.x, enemy.y, rPoint.x, rPoint.y)
             if hits == nil then
                 break
             end
         end
-        moveTowardsWayPoint(rPoint)
+        moveTowardsWayPoint(rPoint, speed / 2)
     end
 
     local function rechargeAttack(event)
@@ -102,7 +115,7 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function onAttackEnd(event)
         if (event.phase == "ended") then
-            if calc.distance(target, enemy) < 150 then
+            if calc.distance(target, enemy) < attackRange * 0.8 and calc.isInFov(target, enemy, fov) then
                 target:gameOver()
             end
             event.target:setSequence("idle")
@@ -115,12 +128,10 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function enterFrame(event)
         if targetIsVisible() then
-            print(enemy.rotation)
-            moveTowardsWayPoint(target)
-            print(enemy.rotation)
-            fov = 90
+            -- moveTowardsWayPoint(target, speed)
+            fov = 70
             isEngaged = true
-            enemy:setFillColor(1, 1, 1)
+            enemy:setFillColor(1, 0, 0)
             if attackIsReady and calc.distance(target, enemy) < attackRange then
                 attack()
             end
@@ -130,16 +141,18 @@ function M.new(x, y, target, isWandering, initAngle)
 
         if isEngaged == true then
             isEngaged = false
-            enemy:setLinearVelocity(0, 0)
         end
 
         if isWandering and wanderIsReady then
-            enemy:setFillColor(0.7, 0, 0)
+            enemy:setFillColor(0, 0.8, 0.8)
             wander()
             return
         end
         -- if idle
-        enemy:setFillColor(0.7, 0, 0)
+        local velX, velY = enemy:getLinearVelocity()
+        if velX == 0 and velY == 0 then
+            enemy:setFillColor(0, 0.6, 0.6)
+        end
     end
 
     function enemy:collision(event)
@@ -147,9 +160,11 @@ function M.new(x, y, target, isWandering, initAngle)
             Runtime:removeEventListener("enterFrame", enterFrame)
             enemy:removeEventListener("collision")
             enemy:removeEventListener("sprite", onAttackEnd)
-            enemy:setFillColor(0.2, 0.8, 0.8)
+            enemy:setFillColor(0.3, 0.0, 0.0)
             isAlive = false
             timer.performWithDelay(100, destroyCollider)
+        else
+            enemy:setLinearVelocity(0, 0)
         end
     end
 

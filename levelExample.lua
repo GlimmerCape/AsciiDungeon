@@ -50,11 +50,11 @@ function scene:create(event)
         enemy.new(1000, 700, player, true)
         , enemy.new(200, 200, player, false), enemy.new(300, 100, player, false),
         enemy.new(1800, 400, player, false) }
-    local fovLineExample = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(50)) * 600,
-        enemies[4].y + math.sin(math.rad(50)) * 600)
-    local fovLineExample2 = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(50)) * 600
+    local fovLineExample = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(45)) * 600,
+        enemies[4].y + math.sin(math.rad(45)) * 600)
+    local fovLineExample2 = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(45)) * 600
         ,
-        enemies[4].y - math.sin(math.rad(50)) * 600)
+        enemies[4].y - math.sin(math.rad(45)) * 600)
     local fovLines = { fovLineExample, fovLineExample2 }
 
 

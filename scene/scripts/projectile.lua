@@ -10,7 +10,7 @@ function M.new(vx, vy, x, y)
     projectile:setSequence("idle")
     projectile.x, projectile.y = x, y
     projectile:scale(0.8, 0.8)
-    projectile:setFillColor(1.5, 0.5, 0)
+    projectile:setFillColor(1.5, 1.5, 1)
 
     physics.addBody(projectile, "dynamic", { radius = 30, filter = { groupIndex = -1 } })
     projectile.isbullet = true
