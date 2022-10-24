@@ -21,7 +21,8 @@ rightButton.x, rightButton.y = display.contentWidth - 128 + 100, display.content
 
 button = joykey.newButton()
 button.x, button.y = display.contentWidth - 128, display.contentHeight - 128
-
+bgMusic = audio.loadStream("2nd_track.mp3")
 audio.reserveChannels(1)
+audio.play(bgMusic, { channel = 1, loops = -1 })
 
 composer.gotoScene("levelExample", { params = {} })

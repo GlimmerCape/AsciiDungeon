@@ -11,7 +11,7 @@ application =
         height = 1280,
         scale = "letterbox",
         fps = 60,
-
+        audioPlayFrequency = 22050,
         xAlign = "center",
         yAlign = "center",
 
