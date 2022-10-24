@@ -115,7 +115,7 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function onAttackEnd(event)
         if (event.phase == "ended") then
-            if calc.distance(target, enemy) < attackRange * 0.8 and calc.isInFov(target, enemy, fov) then
+            if calc.distance(target, enemy) < attackRange * 0.8 and calc.isInFov(target, enemy, fov / 2) then
                 target:gameOver()
             end
             event.target:setSequence("idle")
@@ -128,7 +128,7 @@ function M.new(x, y, target, isWandering, initAngle)
 
     local function enterFrame(event)
         if targetIsVisible() then
-            -- moveTowardsWayPoint(target, speed)
+            moveTowardsWayPoint(target, speed)
             fov = 70
             isEngaged = true
             enemy:setFillColor(1, 0, 0)
@@ -156,7 +156,7 @@ function M.new(x, y, target, isWandering, initAngle)
     end
 
     function enemy:collision(event)
-        if event.other.type == "projectile" and event.phase == "ended" then
+        if event.other.type == "projectile" and isAlive then
             Runtime:removeEventListener("enterFrame", enterFrame)
             enemy:removeEventListener("collision")
             enemy:removeEventListener("sprite", onAttackEnd)
