@@ -2,7 +2,6 @@ local calculate = {}
 
 function calculate.isInFov(target, firstPos, fov)
     local angleDiff = math.abs(firstPos.rotation - calculate.angle(target, firstPos))
-    print(angleDiff)
     if angleDiff > 360 - fov then
         return true
     else
