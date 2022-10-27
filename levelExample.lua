@@ -20,10 +20,11 @@ local map, player
 function scene:create(event)
     -- display.setDrawMode("wireframe", true)
     sceneGroup = self.view
-    bgMusic = audio.loadStream("2nd_track.wav")
-    audio.reserveChannels(1)
-    audio.play(bgMusic, { loops = -1 })
-    audio.setVolume(0.3)
+    if not audio.isChannelPlaying(1) then
+        bgMusic = audio.loadStream("2nd_track.wav")
+        audio.reserveChannels(1)
+        audio.play(bgMusic, { channel = 1, loops = -1, })
+    end
 
     uiGroup = display.newGroup()
     uiGroup.x, uiGroup.y = display.contentCenterX - display.contentWidth / 2,
