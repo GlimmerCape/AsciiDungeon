@@ -51,7 +51,8 @@ function M.new(instance, options)
     instance.isFixedRotation = true
 
     -- Keyboard control
-    local max, acceleration, angularSpeed, left, right, down, up, flip = 375, -350, 2.5, 0, 0, 0, 0, 0
+    local max, angularSpeed, left, right, down, up, flip = 375, 2.5, 0, 0, 0, 0, 0
+    instance.acceleration = -350
     local lastEvent = {}
 
     local function key(event)
@@ -69,11 +70,11 @@ function M.new(instance, options)
             elseif "space" == name or "buttonA" == name or "button1" == name then
             end
             if "up" == name or "buttonU" == name then
-                up = -acceleration
+                up = -instance.acceleration
                 down = 0
             end
             if "down" == name or "buttonD" == name then
-                down = acceleration
+                down = instance.acceleration
                 up = 0
             end
         elseif phase == "up" then
@@ -110,8 +111,8 @@ function M.new(instance, options)
         -- end
         -- dy = 0
         -- if axisX ~= 0 and axisY ~= 0 then
-        --     -- dy = -(math.abs(axisX) + math.abs(axisY)) * acceleration
-        --     dy = -acceleration
+        --     -- dy = -(math.abs(axisX) + math.abs(axisY)) * instance.acceleration
+        --     dy = -instance.acceleration
         -- end
         -- instance.vx = axis
         -- instance.vy = axisY
@@ -120,10 +121,10 @@ function M.new(instance, options)
     end
 
     function instance:gameOver()
-        if gameIsOver then
+        if isGameOver then
             return
         end
-        gameIsOver = true
+        isGameOver = true
         instance:finalize()
         local gameOverScreen = display.newImage("scene/game/map/gameOverScreen.jpg")
         cam:setMask(nil)
