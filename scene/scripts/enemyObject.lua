@@ -3,7 +3,7 @@ local fx = require("com.ponywolf.ponyfx")
 local M = {}
 
 function M.new(instance, target, isWandering, initAngle)
-
+    local dyingSound = audio.loadSound("hitHurt.wav")
     local fov = 45
     local rangeOV = 600
     --range of hearing
@@ -159,6 +159,7 @@ function M.new(instance, target, isWandering, initAngle)
 
     function enemy:collision(event)
         if event.other.type == "projectile" and isAlive then
+            audio.play("dyingSound")
             Runtime:removeEventListener("enterFrame", enterFrame)
             enemy:removeEventListener("collision")
             enemy:removeEventListener("sprite", onAttackEnd)

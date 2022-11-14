@@ -24,7 +24,10 @@ function scene:create(event)
         bgMusic = audio.loadStream("2nd_track.wav")
         audio.reserveChannels(1)
         audio.play(bgMusic, { channel = 1, loops = -1, })
+        audio.stop(1)
+        audio.play(1)
     end
+    bwaw = audio.loadSound("bwaw.wav")
 
     uiGroup = display.newGroup()
     uiGroup.x, uiGroup.y = display.contentCenterX - display.contentWidth / 2,
@@ -124,6 +127,7 @@ end
 local function key(event)
     if event.phase == "down" then
         if event.keyName == "space" or event.keyName == "buttonA" then
+            audio.play(bwaw)
             local proj = projectile.new(player.vx, player.vy,
                 player.x, player.y)
             cam:add(proj, 0)

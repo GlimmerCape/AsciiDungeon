@@ -10,6 +10,7 @@ function M.new(instance, options)
     -- Get the current scene
     local scene = composer.getScene(composer.getSceneName("current"))
     local sounds = scene.sounds
+    local darkSoulsSound = audio.loadSound("dsSfx.wav")
 
     isGameOver = false
 
@@ -131,6 +132,7 @@ function M.new(instance, options)
         cam:add(gameOverScreen, 0)
         cam:setFocus(gameOverScreen)
         fx.screenFlash({ 1, 0, 0, 1 })
+        audio.play(darkSoulsSound)
         fx.fadeOut(function()
             composer.gotoScene("scene.refresh", { params = { map = scene.filename } })
         end, 1500, 1000)
