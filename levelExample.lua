@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, lowercase-global
 local composer = require("composer")
 
 local fx = require("com.ponywolf.ponyfx")
@@ -11,7 +12,6 @@ local camera = require("com.perspective")
 local plr = require("scene.scripts.player")
 local enemy = require("scene.scripts.enemyObject")
 local projectile = require("scene.scripts.projectile")
-require("dynLight")
 
 scene = composer.newScene()
 
