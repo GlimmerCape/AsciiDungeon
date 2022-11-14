@@ -1,3 +1,5 @@
 *.pkf
 *.png
-*.tiled_session
+*.tiled-session
+*.CoronaLiveBuild
+
