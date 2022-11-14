@@ -55,10 +55,47 @@
          "y":0
         }, 
         {
+         "class":"enemyObject",
          "draworder":"topdown",
          "id":4,
-         "name":"objects",
-         "objects":[],
+         "name":"enemy",
+         "objects":[
+                {
+                 "class":"enemyObject",
+                 "gid":7,
+                 "height":100,
+                 "id":6,
+                 "name":"enemy",
+                 "rotation":0,
+                 "visible":true,
+                 "width":100,
+                 "x":1418,
+                 "y":1110
+                }, 
+                {
+                 "class":"enemyObject",
+                 "gid":7,
+                 "height":100,
+                 "id":7,
+                 "name":"enemy",
+                 "rotation":0,
+                 "visible":true,
+                 "width":100,
+                 "x":940,
+                 "y":1124
+                }, 
+                {
+                 "class":"enemyObject",
+                 "gid":7,
+                 "height":108,
+                 "id":8,
+                 "name":"enemy",
+                 "rotation":212.432908688175,
+                 "visible":true,
+                 "width":114.352941176471,
+                 "x":827.409418825558,
+                 "y":1061.80844930943
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -123,7 +160,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":6,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -2,7 +2,7 @@ local calc = require("scene.scripts.calculate")
 local fx = require("com.ponywolf.ponyfx")
 local M = {}
 
-function M.new(x, y, target, isWandering, initAngle)
+function M.new(instance, target, isWandering, initAngle)
 
     local fov = 45
     local rangeOV = 600
@@ -35,13 +35,17 @@ function M.new(x, y, target, isWandering, initAngle)
         { name = "attack", frames = { 7, 8, 9, 10, 11, 12 }, time = 300, loopCount = 1 }
     }
 
-    local enemy = display.newSprite(sheet, sequenceData)
+    local enemy = display.newSprite(instance.parent, sheet, sequenceData)
 
     enemy:setSequence("idle")
     enemy:play()
 
+    local x, y = instance.x, instance.y
+    instance:removeSelf()
     enemy.x, enemy.y = x, y
+    initAngle = instance.rotation
     enemy.rotation = initAngle
+
     enemy:scale(1.5, 1.5)
     local isAlive = true
 

@@ -1,7 +1,7 @@
 local composer = require("composer")
 
 local fx = require("com.ponywolf.ponyfx")
-local tiled = require("com.ponywolf.ponytiled")
+local tiled = require("ponywolf.ponytiled")
 local physics = require("physics")
 local json = require("json")
 
@@ -37,6 +37,8 @@ function scene:create(event)
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
+    map:extend("enemyObject")
+    local enemies = map:findObjects("enemy")
     map.x, map.y = 0
     map.alpha = 1.5
 
@@ -45,22 +47,16 @@ function scene:create(event)
     player.x, player.y = 0, 500
     player.rotation = 180
 
+    print(#enemies)
+    for i, v in ipairs(enemies) do
+        v = enemy.new(v, player)
+    end
 
     local items = {}
     for i = 1, 3 do
         items[i] = item.new("item " .. i)
     end
     -- local chest1 = chest.new(900, 200, items)
-    local enemies = { enemy.new(1100, 700, player, true), enemy.new(900, 700, player, true),
-        enemy.new(1000, 700, player, true)
-        , enemy.new(200, 200, player, false), enemy.new(300, 100, player, false),
-        enemy.new(1800, 400, player, false) }
-    local fovLineExample = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(45)) * 600,
-        enemies[4].y + math.sin(math.rad(45)) * 600)
-    local fovLineExample2 = display.newLine(enemies[4].x, enemies[4].y, enemies[4].x + math.cos(math.rad(45)) * 600
-        ,
-        enemies[4].y - math.sin(math.rad(45)) * 600)
-    local fovLines = { fovLineExample, fovLineExample2 }
 
 
     uiGroup:insert(button)
@@ -71,15 +67,7 @@ function scene:create(event)
     uiGroup:insert(downButton)
     uiGroup:insert(player.debugText)
     -- map:insert(chest1)
-    for i, v in pairs(enemies) do
-        map:insert(v)
-    end
 
-    for i, v in pairs(fovLines) do
-        map:insert(v)
-        v:setStrokeColor(1, 1, 1)
-        v.strokeWidth = 4
-    end
 
     cam = camera.createView()
     cam:add(player, 1)
