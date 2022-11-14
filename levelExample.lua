@@ -15,7 +15,7 @@ require("dynLight")
 
 scene = composer.newScene()
 
-local map, player
+map, player = {}, {}
 
 function scene:create(event)
     -- display.setDrawMode("wireframe", true)
@@ -106,32 +106,31 @@ local function applyLightShader()
 
 
     uiGroup.alpha = 0
+    player.aplha = 0
     d = display:captureScreen()
 
     d.contentHeight, d.contentWidth = display.contentWidth, display.contentHeight
     d.x, d.y = display.contentCenterX, display.contentCenterY
 
     uiGroup.alpha = 1
+    player.alpha = 1
     uiGroup:toFront()
 
-    local pX, pY = display.contentCenterX, display.contentCenterY
-    d.fill.effect = "filter.custom.dynLight"
-    if (player.rotation > 180) then
-        player.rotation = player.rotation % 360
-    end
-    if (player.rotation < 0) then
-        player.rotation = player.rotation + 360
-    end
-    local dir = math.rad(player.rotation)
-    d.fill.effect.playerX = pX
-    d.fill.effect.playerY = pY
-    d.fill.effect.lightAngle = dir
-
+    d.fill.effect = "filter.bloom"
+    d.fill.effect.levels.white = 0.55
+    d.fill.effect.levels.black = 0.4
+    d.fill.effect.levels.gamma = 0.8
+    d.fill.effect.add.alpha = 0.4
+    d.fill.effect.blur.horizontal.blurSize = 3
+    d.fill.effect.blur.horizontal.sigma = 500
+    d.fill.effect.blur.vertical.blurSize = 3
+    d.fill.effect.blur.vertical.sigma = 500
 end
 
 local function enterFrame(event)
-    -- applyLightShader()
+    applyLightShader()
     cam.maskRotation = player.rotation - 180
+    player.debugText.text = display.fps
 end
 
 local function key(event)

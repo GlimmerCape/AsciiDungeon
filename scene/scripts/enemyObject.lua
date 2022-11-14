@@ -1,4 +1,5 @@
 local calc = require("scene.scripts.calculate")
+local fx = require("com.ponywolf.ponyfx")
 local M = {}
 
 function M.new(x, y, target, isWandering, initAngle)
@@ -65,9 +66,6 @@ function M.new(x, y, target, isWandering, initAngle)
     end
 
     local function targetIsVisible()
-        target.debugText.text = tostring(calc.isInFov(target, enemy, fov))
-        target.debugText.text = target.debugText.text ..
-            tostring(math.abs(enemy.rotation - calc.angle(target, enemy)))
         if ((calc.distance(target, enemy) < rangeOV) and (isEngaged or calc.isInFov(target, enemy, fov)))
             or calc.distance(target, enemy) < rangeOH then
             local hits = physics.rayCast(enemy.x, enemy.y, target.x, target.y, "sorted")
@@ -163,6 +161,8 @@ function M.new(x, y, target, isWandering, initAngle)
             enemy:setFillColor(0.3, 0.0, 0.0)
             isAlive = false
             timer.performWithDelay(100, destroyCollider)
+            fx.flashHurt(enemy, 5)
+            fx.shake(map, 30, 20)
         else
             enemy:setLinearVelocity(0, 0)
         end
