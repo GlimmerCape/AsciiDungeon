@@ -20,14 +20,15 @@ map, player = {}, {}
 function scene:create(event)
     -- display.setDrawMode("wireframe", true)
     sceneGroup = self.view
-    if not audio.isChannelPlaying(1) then
-        bgMusic = audio.loadStream("2nd_track.wav")
-        audio.reserveChannels(1)
-        audio.play(bgMusic, { channel = 1, loops = -1, })
-        audio.stop(1)
-        audio.play(1)
-    end
-    bwaw = audio.loadSound("bwaw.wav")
+    -- if not audio.isChannelPlaying(1) then
+    --     bgMusic = audio.loadStream("2nd_track.wav")
+    --     audio.reserveChannels(1)
+    --     audio.play(bgMusic, { channel = 1, loops = -1, })
+    --     audio.stop(1)
+    --     audio.play(1)
+    -- end
+    audio.reserveChannels(1)
+    pwaw = audio.loadSound("pwaw.wav")
 
     uiGroup = display.newGroup()
     uiGroup.x, uiGroup.y = display.contentCenterX - display.contentWidth / 2,
@@ -62,12 +63,12 @@ function scene:create(event)
     -- local chest1 = chest.new(900, 200, items)
 
 
-    uiGroup:insert(button)
-    uiGroup:insert(fakeButton)
-    uiGroup:insert(leftButton)
-    uiGroup:insert(rightButton)
-    uiGroup:insert(upButton)
-    uiGroup:insert(downButton)
+    -- uiGroup:insert(button)
+    -- uiGroup:insert(fakeButton)
+    -- uiGroup:insert(leftButton)
+    -- uiGroup:insert(rightButton)
+    -- uiGroup:insert(upButton)
+    -- uiGroup:insert(downButton)
     uiGroup:insert(player.debugText)
     -- map:insert(chest1)
 
@@ -121,13 +122,13 @@ end
 local function enterFrame(event)
     applyLightShader()
     cam.maskRotation = player.rotation - 180
-    player.debugText.text = display.fps
+    player.debugText.text = "version 3"
 end
 
 local function key(event)
     if event.phase == "down" then
         if event.keyName == "space" or event.keyName == "buttonA" then
-            audio.play(bwaw)
+            audio.play(pwaw)
             local proj = projectile.new(player.vx, player.vy,
                 player.x, player.y)
             cam:add(proj, 0)
