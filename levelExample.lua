@@ -47,7 +47,7 @@ function scene:create(event)
 
     player = plr.new(self)
     player:scale(0.8, 0.8)
-    player.x, player.y = 0, 500
+    player.x, player.y = 1900, 1900
     player.rotation = 180
 
     print(#enemies)
