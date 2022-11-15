@@ -1,3 +1,4 @@
+local fx = require("com.ponywolf.ponyfx")
 local M = {}
 
 function M.new(vx, vy, x, y)
@@ -9,13 +10,15 @@ function M.new(vx, vy, x, y)
     local projectile = display.newSprite(sheet, sequenceData)
     projectile:setSequence("idle")
     projectile.x, projectile.y = x, y
-    projectile:scale(0.8, 0.8)
-    projectile:setFillColor(1.5, 1.5, 1)
+    projectile:scale(0.1, 0.1)
+    projectile:setFillColor(1, 0.8, 1)
 
     physics.addBody(projectile, "dynamic", { radius = 30, filter = { groupIndex = -1 } })
     projectile.isbullet = true
 
     projectile:setLinearVelocity(vx * 1900, vy * 1900)
+
+    fx.newTrail(projectile, { color = { 1, 0.9, 1 }, parent = map, size = 75 })
 
     local function destroySelf()
         projectile:removeSelf()
