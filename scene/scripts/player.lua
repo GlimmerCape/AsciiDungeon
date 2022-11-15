@@ -61,28 +61,28 @@ function M.new(instance, options)
         local name = event.keyName
         if (phase == lastEvent.phase) and (name == lastEvent.keyName) then return false end -- Filter repeating keys
         if phase == "down" then
-            if "left" == name or "buttonL" == name then
+            if "buttonL" == name then
                 left = -angularSpeed
                 right = 0
             end
-            if "right" == name or "buttonR" == name then
+            if "buttonR" == name then
                 right = angularSpeed
                 left = 0
             elseif "space" == name or "buttonA" == name or "button1" == name then
             end
-            if "up" == name or "buttonU" == name then
+            if "buttonU" == name then
                 up = -instance.acceleration
                 down = 0
             end
-            if "down" == name or "buttonD" == name then
+            if "buttonD" == name then
                 down = instance.acceleration
                 up = 0
             end
         elseif phase == "up" then
-            if "left" == name or "buttonL" == name then left = 0 end
-            if "right" == name or "buttonR" == name then right = 0 end
-            if "up" == name or "buttonU" == name then up = 0 end
-            if "down" == name or "buttonD" == name then down = 0 end
+            if "buttonL" == name then left = 0 end
+            if "buttonR" == name then right = 0 end
+            if "buttonU" == name then up = 0 end
+            if "buttonD" == name then down = 0 end
         end
         lastEvent = event
     end
