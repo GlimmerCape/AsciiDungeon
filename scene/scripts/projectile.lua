@@ -21,7 +21,9 @@ function M.new(vx, vy, x, y)
     fx.newTrail(projectile, { color = { 1, 0.9, 1 }, parent = map, size = 75 })
 
     local function destroySelf()
-        projectile:removeSelf()
+        if projectile ~= nil then
+            projectile:removeSelf()
+        end
     end
 
     function projectile:collision(event)
