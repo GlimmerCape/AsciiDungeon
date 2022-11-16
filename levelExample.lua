@@ -11,6 +11,7 @@ local item = require("scene.scripts.item")
 local camera = require("com.perspective")
 local plr = require("scene.scripts.player")
 local enemy = require("scene.scripts.enemyObject")
+local uiCollider = require("scene.scripts.UICollider")
 local projectile = require("scene.scripts.projectile")
 
 scene = composer.newScene()
@@ -37,12 +38,14 @@ function scene:create(event)
     physics.start()
     physics.setGravity(0, 0)
 
-    local filename = event.params.map or "scene/game/map/testingSite.json"
+    filename = event.params.map or "scene/game/map/0level.json"
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
     map:extend("enemyObject")
+    map:extend("UICollider")
     local enemies = map:findObjects("enemy")
+    local UIColliders = map:findObjects("UICollider")
     map.x, map.y = 0
     map.alpha = 1.5
 
@@ -51,9 +54,11 @@ function scene:create(event)
     player.x, player.y = 1900, 1900
     player.rotation = 180
 
-    print(#enemies)
     for i, v in ipairs(enemies) do
         v = enemy.new(v, player)
+    end
+    for i, v in ipairs(UIColliders) do
+        v = uiCollider.new(v, v.type)
     end
 
     local items = {}
@@ -63,13 +68,13 @@ function scene:create(event)
     -- local chest1 = chest.new(900, 200, items)
 
 
-    -- uiGroup:insert(button)
-    -- uiGroup:insert(fakeButton)
-    -- uiGroup:insert(leftButton)
-    -- uiGroup:insert(rightButton)
-    -- uiGroup:insert(upButton)
-    -- uiGroup:insert(downButton)
-    uiGroup:insert(player.debugText)
+    uiGroup:insert(button)
+    uiGroup:insert(fakeButton)
+    uiGroup:insert(leftButton)
+    uiGroup:insert(rightButton)
+    uiGroup:insert(upButton)
+    uiGroup:insert(downButton)
+    -- uiGroup:insert(player.debugText)
     -- map:insert(chest1)
 
 
