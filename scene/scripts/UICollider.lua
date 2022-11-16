@@ -16,12 +16,12 @@ function M.new(instance, name)
 
     function instance:collision(event)
         print("data")
-        if event.other ~= nil then
-            if name == "play" then
+        if event.other.type == "player" then
+            if name == "exit" then
+                timer.performWithDelay(10, exit)
+            else
                 instance:removeEventListener("collision")
                 timer.performWithDelay(10, nextScene)
-            elseif name == "exit" then
-                timer.performWithDelay(10, exit)
             end
 
         end
