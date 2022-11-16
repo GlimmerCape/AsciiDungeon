@@ -2,7 +2,7 @@
 local composer = require("composer")
 
 local fx = require("com.ponywolf.ponyfx")
-local tiled = require("ponywolf.ponytiled")
+local tiled = require("com.ponywolf.ponytiled")
 local physics = require("physics")
 local json = require("json")
 
@@ -39,13 +39,16 @@ function scene:create(event)
     physics.setGravity(0, 0)
 
     filename = event.params.map or "scene/game/map/0level.json"
+    print(event.params.map)
     local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
     map = tiled.new(mapData, "scene/game/map")
     map.extensions = "scene.scripts."
     map:extend("enemyObject")
     map:extend("UICollider")
+    -- map:extend("chest")
     local enemies = map:findObjects("enemy")
     local UIColliders = map:findObjects("UICollider")
+    local chests = map:findObjects("chest")
     map.x, map.y = 0
     map.alpha = 1.5
 
@@ -59,6 +62,9 @@ function scene:create(event)
     end
     for i, v in ipairs(UIColliders) do
         v = uiCollider.new(v, v.type)
+    end
+    for i, v in ipairs(chests) do
+        v = chest.new(v)
     end
 
     local items = {}
@@ -94,6 +100,14 @@ function scene:create(event)
     cam.maskScaleX = 2.0
     cam.maskScaleY = 2.0
     uiGroup:toFront()
+end
+
+function scene:show(event)
+
+    local phase = event.phase
+    if (phase == "will") then
+        fx.fadeIn()
+    end
 end
 
 local function applyLightShader()
@@ -144,6 +158,10 @@ end
 function scene:hide(event)
     Runtime:removeEventListener("key", key)
     Runtime:removeEventListener("enterFrame", enterFrame)
+    local phase = event.phase
+    if (phase == "will") then
+        audio.fadeOut({ time = 1000 })
+    end
     cam:destroy()
     for i, v in ipairs(map) do
         for j, vv in ipairs(v) do

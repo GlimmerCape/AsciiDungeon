@@ -3,7 +3,7 @@ local itemsUI = require("scene.scripts.itemUI")
 
 local M = {}
 
-function M.new(x, y, items)
+function M.new(instance, items)
     local container = items
 
     local sheetData = { width = 100,
@@ -11,11 +11,9 @@ function M.new(x, y, items)
         numFrames = 64, }
     local sheet = graphics.newImageSheet("scene/game/map/asciiTileset.png", sheetData)
     local sequenceData = { { name = "idle", frames = { 4 } } }
-    local instance = display.newSprite(sheet, sequenceData)
-    instance:setSequence("idle")
-    instance.x, instance.y = x, y
-    instance:setFillColor(1, 1, 0)
-
+    instance:setFillColor(1, 0.9, 1)
+    instance.fill.effect = "filter.brightness"
+    instance.fill.effect.intensity = 0.6
     local UI
 
     physics.addBody(instance, "static")

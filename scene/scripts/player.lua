@@ -133,8 +133,9 @@ function M.new(instance, options)
         cam:setFocus(gameOverScreen)
         fx.screenFlash({ 1, 0, 0, 1 })
         audio.play(darkSoulsSound)
+        print(filename)
         fx.fadeOut(function()
-            composer.gotoScene("scene.refresh", { params = { map = scene.filename } })
+            composer.gotoScene("scene.refresh", { params = { map = filename } })
         end, 1500, 1000)
 
     end
