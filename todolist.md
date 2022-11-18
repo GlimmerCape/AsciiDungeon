@@ -1,8 +1,8 @@
 - score system (gold)
-- few levels
+x few levels
 - fix chest UI bug
 ? add new enemy type?
-- add sfx 
+x add sfx 
 x weird bugs
 x death screen and level replay
 x AI vision broke

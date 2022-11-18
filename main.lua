@@ -19,6 +19,9 @@ downButton.x, downButton.y = 64, display.contentHeight - 180
 leftButton.x, leftButton.y = display.contentWidth - 128 - 100, display.contentHeight - 240
 rightButton.x, rightButton.y = display.contentWidth - 128 + 100, display.contentHeight - 240
 
+Score = 0
+Level = 0
+
 button = joykey.newButton(72)
 button.x, button.y = display.contentWidth - 128, display.contentHeight - 128
 
