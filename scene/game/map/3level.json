@@ -66,11 +66,11 @@
                  "height":100,
                  "id":11,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":84.4587952219601,
                  "visible":true,
                  "width":100,
-                 "x":2250,
-                 "y":938
+                 "x":2245.40557057595,
+                 "y":843.061728161153
                 }, 
                 {
                  "class":"enemyObject",
@@ -78,11 +78,11 @@
                  "height":100,
                  "id":12,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":79.9975368343507,
                  "visible":true,
                  "width":100,
-                 "x":2326,
-                 "y":1090
+                 "x":2318.07545991784,
+                 "y":999.444511391545
                 }, 
                 {
                  "class":"enemyObject",
@@ -90,11 +90,11 @@
                  "height":100,
                  "id":13,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":1.89039810171616,
                  "visible":true,
                  "width":100,
-                 "x":2274,
-                 "y":1254
+                 "x":2272.37782782356,
+                 "y":1252.32340364447
                 }, 
                 {
                  "class":"enemyObject",
@@ -102,11 +102,11 @@
                  "height":100,
                  "id":14,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":111.333949965828,
                  "visible":true,
                  "width":100,
-                 "x":2870,
-                 "y":1638
+                 "x":2891.61637030668,
+                 "y":1523.23604733007
                 }, 
                 {
                  "class":"enemyObject",
@@ -114,11 +114,11 @@
                  "height":100,
                  "id":15,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":244.452632136468,
                  "visible":true,
                  "width":100,
-                 "x":950,
-                 "y":3214
+                 "x":1308.06047207436,
+                 "y":3375.71245569682
                 }, 
                 {
                  "class":"enemyObject",
@@ -126,11 +126,11 @@
                  "height":100,
                  "id":16,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":244.452632136468,
                  "visible":true,
                  "width":100,
-                 "x":1210,
-                 "y":3146
+                 "x":1134.58203959566,
+                 "y":3170.45838517754
                 }, 
                 {
                  "class":"enemyObject",
@@ -138,11 +138,11 @@
                  "height":100,
                  "id":17,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":244.452632136468,
                  "visible":true,
                  "width":100,
-                 "x":1110,
-                 "y":3286
+                 "x":1304.01982217506,
+                 "y":3200.30529179411
                 }, 
                 {
                  "class":"enemyObject",
@@ -150,11 +150,11 @@
                  "height":100,
                  "id":18,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":244.452632136468,
                  "visible":true,
                  "width":100,
-                 "x":1310,
-                 "y":3318
+                 "x":1246.63972422927,
+                 "y":3006.05925101147
                 }, 
                 {
                  "class":"enemyObject",
@@ -162,11 +162,11 @@
                  "height":100,
                  "id":19,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":241.386056621959,
                  "visible":true,
                  "width":100,
-                 "x":1074,
-                 "y":2858
+                 "x":1191.83859819123,
+                 "y":2827.94804740944
                 }],
          "opacity":1,
          "type":"objectgroup",

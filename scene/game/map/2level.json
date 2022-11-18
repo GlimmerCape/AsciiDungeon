@@ -66,11 +66,11 @@
                  "height":100,
                  "id":9,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":308.710462924749,
                  "visible":true,
                  "width":100,
-                 "x":1078,
-                 "y":1554
+                 "x":1135.74655274817,
+                 "y":1574.28506897286
                 }, 
                 {
                  "class":"enemyObject",
@@ -78,11 +78,11 @@
                  "height":100,
                  "id":10,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":95.0504889557566,
                  "visible":true,
                  "width":100,
-                 "x":1094,
-                 "y":994
+                 "x":1018.44898338846,
+                 "y":955.168538275782
                 }, 
                 {
                  "class":"enemyObject",
@@ -90,11 +90,11 @@
                  "height":100,
                  "id":11,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":95.0504889557566,
                  "visible":true,
                  "width":100,
-                 "x":954,
-                 "y":986
+                 "x":1159.95474225067,
+                 "y":934.598173516479
                 }, 
                 {
                  "class":"enemyObject",
@@ -138,11 +138,11 @@
                  "height":100,
                  "id":15,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":281.442019730664,
                  "visible":true,
                  "width":100,
-                 "x":3014,
-                 "y":2510
+                 "x":3103.08748757593,
+                 "y":2518.92510767916
                 }, 
                 {
                  "class":"enemyObject",
@@ -150,11 +150,11 @@
                  "height":100,
                  "id":16,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":278.507554440759,
                  "visible":true,
                  "width":100,
-                 "x":3254,
-                 "y":2490
+                 "x":3346.05282773313,
+                 "y":2496.84680887832
                 }, 
                 {
                  "class":"enemyObject",
@@ -162,11 +162,11 @@
                  "height":100,
                  "id":17,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":295.828229310713,
                  "visible":true,
                  "width":100,
-                 "x":2918,
-                 "y":3014
+                 "x":2991.22147988207,
+                 "y":3030.7889427382
                 }, 
                 {
                  "class":"enemyObject",
@@ -174,11 +174,11 @@
                  "height":100,
                  "id":18,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":284.578030685538,
                  "visible":true,
                  "width":100,
-                 "x":3090,
-                 "y":3078
+                 "x":3175.80537338413,
+                 "y":3088.97520181863
                 }, 
                 {
                  "class":"enemyObject",
@@ -186,11 +186,11 @@
                  "height":100,
                  "id":19,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":302.351430671711,
                  "visible":true,
                  "width":100,
-                 "x":714,
-                 "y":2642
+                 "x":779.48354846871,
+                 "y":2660.99463549304
                 }, 
                 {
                  "class":"enemyObject",
@@ -198,11 +198,11 @@
                  "height":100,
                  "id":20,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":208.713066137406,
                  "visible":true,
                  "width":100,
-                 "x":1126,
-                 "y":2410
+                 "x":1243.87300714614,
+                 "y":2340.16934441478
                 }, 
                 {
                  "class":"enemyObject",
@@ -210,11 +210,11 @@
                  "height":100,
                  "id":21,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":269.996312182317,
                  "visible":true,
                  "width":100,
-                 "x":1166,
-                 "y":3038
+                 "x":1266.00321812447,
+                 "y":3037.99678166839
                 }],
          "opacity":1,
          "type":"objectgroup",

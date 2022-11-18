@@ -5,6 +5,7 @@ local M = {}
 function M.new(instance, name)
 
     local function nextScene()
+        Score = Score + LocalScore
         Level = Level + 1
         local nextLevel = "scene/game/map/" .. Level .. "level.json"
         composer.gotoScene("scene.refresh", { params = { map = nextLevel } })

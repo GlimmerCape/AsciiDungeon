@@ -48,14 +48,8 @@
          "id":3,
          "name":"floor",
          "opacity":1,
-         "properties":[
-                {
-                 "name":"bodyType",
-                 "type":"string",
-                 "value":"static"
-                }],
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":40,
          "x":0,
          "y":0
@@ -71,7 +65,7 @@
                  "gid":7,
                  "height":100,
                  "id":9,
-                 "name":"chest",
+                 "name":"enemy",
                  "rotation":0,
                  "visible":true,
                  "width":100,
@@ -108,11 +102,11 @@
                  "height":100,
                  "id":12,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":293.477218451851,
                  "visible":true,
                  "width":100,
-                 "x":1778,
-                 "y":2930
+                 "x":2042.67162508645,
+                 "y":3013.51634012523
                 }, 
                 {
                  "class":"enemyObject",
@@ -120,11 +114,11 @@
                  "height":100,
                  "id":13,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":293.477218451851,
                  "visible":true,
                  "width":100,
-                 "x":2070,
-                 "y":2906
+                 "x":2136.98662538984,
+                 "y":2736.12729795202
                 }, 
                 {
                  "class":"enemyObject",
@@ -132,11 +126,11 @@
                  "height":100,
                  "id":14,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":293.477218451851,
                  "visible":true,
                  "width":100,
-                 "x":1862,
-                 "y":2710
+                 "x":1874.34783395012,
+                 "y":2848.82541342465
                 }, 
                 {
                  "class":"enemyObject",
@@ -144,11 +138,11 @@
                  "height":100,
                  "id":15,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":213.607558520683,
                  "visible":true,
                  "width":100,
-                 "x":3070,
-                 "y":2970
+                 "x":3073.90452141843,
+                 "y":2639.17912554435
                 }, 
                 {
                  "class":"enemyObject",
@@ -156,11 +150,11 @@
                  "height":100,
                  "id":16,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":213.607558520683,
                  "visible":true,
                  "width":100,
-                 "x":2874,
-                 "y":2738
+                 "x":3108.73044395626,
+                 "y":2940.88619393916
                 }, 
                 {
                  "class":"enemyObject",
@@ -168,11 +162,11 @@
                  "height":100,
                  "id":17,
                  "name":"enemy",
-                 "rotation":0,
+                 "rotation":213.607558520683,
                  "visible":true,
                  "width":100,
-                 "x":2894,
-                 "y":2878
+                 "x":3169.56367876789,
+                 "y":2813.21741332952
                 }, 
                 {
                  "class":"enemyObject",
@@ -215,43 +209,43 @@
                  "gid":7,
                  "height":100,
                  "id":21,
-                 "name":"chest",
-                 "rotation":0,
+                 "name":"enemy",
+                 "rotation":193.596800382104,
                  "visible":true,
                  "width":100,
-                 "x":2698,
-                 "y":1926
+                 "x":2741.27834100905,
+                 "y":1999.15940413202
                 }, 
                 {
                  "class":"enemyObject",
                  "gid":7,
                  "height":100,
                  "id":22,
-                 "name":"chest",
-                 "rotation":0,
+                 "name":"enemy",
+                 "rotation":193.596800382104,
                  "visible":true,
                  "width":100,
-                 "x":2738,
-                 "y":2094
+                 "x":2741.89413202214,
+                 "y":1826.46423685329
                 }, 
                 {
                  "class":"enemyObject",
                  "gid":7,
                  "height":100,
                  "id":23,
-                 "name":"chest",
-                 "rotation":0,
+                 "name":"enemy",
+                 "rotation":193.596800382104,
                  "visible":true,
                  "width":100,
-                 "x":2610,
-                 "y":2034
+                 "x":2852.20155062105,
+                 "y":1914.87392751017
                 }, 
                 {
                  "class":"enemyObject",
                  "gid":7,
                  "height":100,
                  "id":24,
-                 "name":"chest",
+                 "name":"enemy",
                  "rotation":0,
                  "visible":true,
                  "width":100,
@@ -263,7 +257,7 @@
                  "gid":7,
                  "height":100,
                  "id":25,
-                 "name":"chest",
+                 "name":"enemy",
                  "rotation":0,
                  "visible":true,
                  "width":100,
@@ -287,6 +281,12 @@
                  "height":192.449206184007,
                  "id":29,
                  "name":"chest",
+                 "properties":[
+                        {
+                         "name":"last",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":180.588486182207,
                  "visible":true,
                  "width":136.34934273736,
@@ -368,6 +368,12 @@
          "id":2,
          "name":"walls",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"bodyType",
+                 "type":"string",
+                 "value":"static"
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":40,

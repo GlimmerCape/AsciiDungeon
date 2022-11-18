@@ -7,7 +7,6 @@ local physics = require("physics")
 local json = require("json")
 
 local chest = require("scene.scripts.chest")
-local item = require("scene.scripts.item")
 local camera = require("com.perspective")
 local plr = require("scene.scripts.player")
 local enemy = require("scene.scripts.enemyObject")
@@ -20,6 +19,7 @@ map, player = {}, {}
 
 function scene:create(event)
     -- display.setDrawMode("wireframe", true)
+    LocalScore = 0
     sceneGroup = self.view
     -- if not audio.isChannelPlaying(1) then
     --     bgMusic = audio.loadStream("2nd_track.wav")
@@ -31,7 +31,6 @@ function scene:create(event)
     audio.reserveChannels(1)
     pwaw = audio.loadSound("pwaw.wav")
 
-    uiGroup = display.newGroup()
     uiGroup.x, uiGroup.y = display.contentCenterX - display.contentWidth / 2,
         display.contentCenterY - display.contentHeight / 2
 
@@ -64,17 +63,13 @@ function scene:create(event)
         v = uiCollider.new(v, v.type)
     end
     for i, v in ipairs(chests) do
-        v = chest.new(v)
+        v = chest.new(v, v.last)
     end
 
-    local items = {}
-    for i = 1, 3 do
-        items[i] = item.new("item " .. i)
-    end
-    -- local chest1 = chest.new(900, 200, items)
 
 
     uiGroup:insert(button)
+    uiGroup:insert(TopTextGroup)
     uiGroup:insert(fakeButton)
     uiGroup:insert(leftButton)
     uiGroup:insert(rightButton)
@@ -141,7 +136,7 @@ end
 local function enterFrame(event)
     applyLightShader()
     cam.maskRotation = player.rotation - 180
-    player.debugText.text = "version 3"
+    player.debugText.text = ""
 end
 
 local function key(event)

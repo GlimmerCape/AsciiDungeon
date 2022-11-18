@@ -167,6 +167,12 @@
                  "height":138,
                  "id":27,
                  "name":"chest",
+                 "properties":[
+                        {
+                         "name":"last",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":90.017756366267,
                  "visible":true,
                  "width":146,
