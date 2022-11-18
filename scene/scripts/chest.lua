@@ -17,6 +17,8 @@ function M.new(instance, last)
     math.randomseed(os.time())
     local gold = math.random(100, 200)
     local empty = false
+    local cashRegister = audio.loadSound("cashRegister.mp3")
+    local victorySound = audio.loadSound("victory.wav")
 
     last = false or last
     physics.addBody(instance, "static")
@@ -36,6 +38,7 @@ function M.new(instance, last)
                 scoreText.alpha = 1
                 scoreText.text = Score
                 gameComplete:toFront()
+                audio.play(victorySound)
                 player.alpha = 0
                 uiGroup.alpha = 0
 
@@ -47,6 +50,7 @@ function M.new(instance, last)
             elseif (calc.distance(instance, player) < range) then
                 transition.cancel(TopTextGroup)
                 TopText.text = "You got " .. gold .. " gold"
+                audio.play(cashRegister)
                 LocalScore = LocalScore + gold
                 empty = true
                 TopTextGroup.alpha = 1
