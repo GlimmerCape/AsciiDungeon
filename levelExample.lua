@@ -21,13 +21,6 @@ function scene:create(event)
     -- display.setDrawMode("wireframe", true)
     LocalScore = 0
     sceneGroup = self.view
-    -- if not audio.isChannelPlaying(1) then
-    --     bgMusic = audio.loadStream("2nd_track.wav")
-    --     audio.reserveChannels(1)
-    --     audio.play(bgMusic, { channel = 1, loops = -1, })
-    --     audio.stop(1)
-    --     audio.play(1)
-    -- end
     audio.reserveChannels(1)
     pwaw = audio.loadSound("pwaw.wav")
 

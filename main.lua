@@ -2,13 +2,9 @@
 local composer = require "composer"
 require("com.ponywolf.joykey").start()
 local widget = require "widget"
-
 display.setStatusBar(display.HiddenStatusBar)
-
 system.activate("multitouch")
 local joykey = require("com.ponywolf.vjoy")
--- stick = joykey.newStick(3)
--- stick.x, stick.y = 128, display.contentHeight - 128
 
 fakeButton = joykey.newButton(0, "auf")
 upButton = joykey.newButton(72, "buttonU")
@@ -29,9 +25,7 @@ local textOptions =
     font = native.systemFont,
     fontSize = 40,
     align = center
-
 }
-
 uiGroup = display.newGroup()
 TopBgBox = display.newRect(TopTextGroup, display.contentCenterX, 100, display.contentWidth, 200)
 TopBgBox:setFillColor(0, 0, 0, 0)
@@ -56,14 +50,10 @@ local textOptions =
     font = native.systemFontBold,
     fontSize = 90,
     align = center
-
 }
 scoreText = display.newText(textOptions)
 Score = 500
 scoreText.alpha = 0
-
-
-
 
 button = joykey.newButton(72)
 button.x, button.y = display.contentWidth - 128, display.contentHeight - 128

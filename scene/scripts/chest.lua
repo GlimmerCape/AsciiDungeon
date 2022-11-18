@@ -21,6 +21,7 @@ function M.new(instance, last)
     local empty = false
     local cashRegister = audio.loadSound("cashRegister.mp3")
     local victorySound = audio.loadSound("victory.wav")
+    local emptyChestSound = audio.loadSound("mineChest.wav")
 
     last = false or last
     physics.addBody(instance, "static")
@@ -94,6 +95,7 @@ function M.new(instance, last)
             elseif (calc.distance(instance, player) < range and empty) then
                 transition.cancel(TopTextGroup)
                 TopText.text = "Chest is empty"
+                audio.play(emptyChestSound)
                 TopTextGroup.alpha = 1
                 transition.to(TopTextGroup, { time = 2000, alpha = 0, transition = easing.inQuart })
             elseif (calc.distance(instance, player) < range) then
