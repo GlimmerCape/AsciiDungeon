@@ -67,7 +67,12 @@ function M.new(instance, last)
         if (event.phase == "began") then
             if (calc.distance(instance, player) < range and last) then
                 last = false
+                local bg = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth,
+                    display.contentHeight)
+                bg:toFront()
+                bg:setFillColor(0, 0, 0)
                 gameComplete.alpha = 1
+                gameComplete:toFront()
                 scoreText.alpha = 1
                 scoreText.text = Score
                 scoreText:toFront()
@@ -85,7 +90,7 @@ function M.new(instance, last)
                 leftButton:removeSelf()
                 rightButton:removeSelf()
                 button:removeSelf()
-
+                map.alpha = 0
             elseif (calc.distance(instance, player) < range and empty) then
                 transition.cancel(TopTextGroup)
                 TopText.text = "Chest is empty"
