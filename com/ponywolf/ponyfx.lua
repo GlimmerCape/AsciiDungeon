@@ -181,8 +181,10 @@ function M.breath(object, intensity, time)
     local function exhale() transition.to(object, e) end
 
     -- Set transitions
-    i = { time = time, width = w * intensity, height = h / intensity, transtion = easing.inOutQuad, onComplete = exhale }
-    e = { time = time, width = w / intensity, height = h * intensity, transtion = easing.inOutQuad, onComplete = inhale }
+    i = { time = time, xScale = 0.7, width = w * intensity, height = h / intensity,
+        transtion = easing.inOutQuad, onComplete = exhale }
+    e = { time = time, xScale = 0.8, width = w / intensity, height = h * intensity,
+        transtion = easing.inOutQuad, onComplete = inhale }
 
     inhale()
 end

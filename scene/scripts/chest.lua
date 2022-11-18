@@ -1,5 +1,7 @@
 local calc = require("scene.scripts.calculate")
 
+local fx = require("com.ponywolf.ponyfx")
+
 local M = {}
 
 function M.new(instance, last)
@@ -15,7 +17,7 @@ function M.new(instance, last)
     local UI
     local range = 200;
     math.randomseed(os.time())
-    local gold = math.random(100, 200)
+    local gold = math.random(5, 10) * 100
     local empty = false
     local cashRegister = audio.loadSound("cashRegister.mp3")
     local victorySound = audio.loadSound("victory.wav")
@@ -29,6 +31,37 @@ function M.new(instance, last)
     --         UI = nil
     --     end
     -- end
+    local loopCount = 1
+    local animate = function(obj, ref)
+        if ref then
+            obj.transitionLoop = ref
+        end
+
+        if loopCount == 1 then
+            transition.to(obj, {
+                -- x = obj.x + 10,
+                y = obj.y + 30,
+                rotation = obj.rotation + 5,
+                onComplete = obj.transitionLoop
+            })
+        elseif loopCount % 2 == 0 then
+
+            transition.to(obj, {
+                -- x = obj.x - 60,
+                y = obj.y - 60,
+                rotation = obj.rotation - 10,
+                onComplete = obj.transitionLoop
+            })
+        else
+            transition.to(obj, {
+                -- x = obj.x + 60,
+                y = obj.y + 60,
+                rotation = obj.rotation + 10,
+                onComplete = obj.transitionLoop
+            })
+        end
+        loopCount = loopCount + 1
+    end
 
     local function onObjectTouch(event)
         if (event.phase == "began") then
@@ -37,10 +70,21 @@ function M.new(instance, last)
                 gameComplete.alpha = 1
                 scoreText.alpha = 1
                 scoreText.text = Score
-                gameComplete:toFront()
+                scoreText:toFront()
                 audio.play(victorySound)
                 player.alpha = 0
                 uiGroup.alpha = 0
+
+                -- animate(gameComplete, animate)
+                -- animate(scoreText, animate)
+                fx.breath(gameComplete, 0.02, 2500)
+
+                fakeButton:removeSelf()
+                upButton:removeSelf()
+                downButton:removeSelf()
+                leftButton:removeSelf()
+                rightButton:removeSelf()
+                button:removeSelf()
 
             elseif (calc.distance(instance, player) < range and empty) then
                 transition.cancel(TopTextGroup)

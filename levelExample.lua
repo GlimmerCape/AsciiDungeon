@@ -155,7 +155,6 @@ function scene:hide(event)
     Runtime:removeEventListener("enterFrame", enterFrame)
     local phase = event.phase
     if (phase == "will") then
-        audio.fadeOut({ time = 1000 })
     end
     cam:destroy()
     for i, v in ipairs(map) do

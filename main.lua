@@ -44,7 +44,7 @@ LocalScore = 0
 Score = 0
 Level = 0
 
-gameComplete = display.newImage("gameCompleted.png")
+gameComplete = display.newImage("gameCompleted2.png")
 gameComplete.x, gameComplete.y = display.contentCenterX, display.contentCenterY * 0.8
 gameComplete:scale(display.contentWidth / gameComplete.width, 1)
 gameComplete.alpha = 0
